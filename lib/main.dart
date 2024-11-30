@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:se380_project/pages/settings_page.dart';
 import 'pages/home.dart';
 
 void main() {
@@ -13,7 +16,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: const HomePage(),
+      routes: {
+        '/homePage': (context) => HomePage(),
+        '/settings': (context) => SettingsPage(),
+      },
     );
   }
 }

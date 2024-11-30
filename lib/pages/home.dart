@@ -7,6 +7,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  void userTapped(){
+    print("user tapped");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,75 +20,33 @@ class HomePage extends StatelessWidget {
           'Math Ninja',
           style: GoogleFonts.nunito(
             textStyle: TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 letterSpacing: .5,
-                fontSize: 18,
+                fontSize: 24,
                 fontWeight: FontWeight.bold),
           ),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.deepPurple,
+        elevation: 0,
         centerTitle: true,
-        actions: [
-          GestureDetector(
-            onTap: () {debugPrint("Clicked menu");},
-            child: Container(
-              margin: EdgeInsets.all(10),
-              alignment: Alignment.center,
-              width: 20,
-              child: SvgPicture.asset(
-                'assets/icons/dots.svg',
-                width: 5,
-                height: 5,
-              ),
-              decoration: BoxDecoration(
-                color: Color(0xffF7F8F8),
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-          ),
-        ],
-        leading: GestureDetector(
-          onTap: () {debugPrint("Clicked back");},
+        leading: Icon(Icons.menu,color: Colors.white,),
+        actions:[IconButton(onPressed: (){
+          Navigator.pushNamed(context, '/settings');
+        }, icon:Icon(Icons.settings,color: Colors.white,))],
+      ),
+      body: Center(
+        child: GestureDetector(
+          onTap: (){
+          },
           child: Container(
-            margin: EdgeInsets.all(10),
-            alignment: Alignment.center,
-            child: SvgPicture.asset(
-              'assets/icons/Arrow - Left 2.svg',
-              width: 20,
-              height: 20,
-            ),
-            decoration: BoxDecoration(
-              color: Color(0xffF7F8F8),
-              borderRadius: BorderRadius.circular(10),
-            ),
+            width: 200,
+            height: 200,
+            color: Colors.purple[200],
+            child: Center(child: Text("Tap me!")),
           ),
-        ),
-      ),
-      body:  Container(
-        width: 1000,
-        height: 1000,
-        alignment: Alignment.bottomLeft,
-        child: Container(
-          width: 175,
-          height: 150,
-          margin: EdgeInsets.all(25),
-          decoration: BoxDecoration(
-            color: Colors.purpleAccent,
-            borderRadius: BorderRadius.circular(25),
-          ),
-          child: Text('Addition',
-            textAlign: TextAlign.center,
-            style: GoogleFonts.nunito(
-              textStyle: TextStyle(
-                color: Colors.black,
-                letterSpacing: 1,
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-      ),
+        )
+
+      )
     );
   }
 }
