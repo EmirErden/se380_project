@@ -13,9 +13,106 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple[100],
-      body: Center(
-        child: Text("Home Page"),
+      backgroundColor: Colors.grey.shade300,
+      body: Column(
+        children: [
+          Spacer(), //blank until end
+          GridView.count(
+            crossAxisCount: 2, // box next to other one
+            padding: EdgeInsets.all(16),
+            shrinkWrap: true,
+            children: [
+              GestureDetector(
+                onTap: (){
+                  Navigator.pushNamed(context, '/Addition');
+                },
+                // ADDITION BOX
+                child: Container(
+                  margin: EdgeInsets.all(8),
+                  child: Center(child: Text('Addition', style: GoogleFonts.nunito(textStyle: TextStyle(
+                    color: Colors.white,
+                    letterSpacing: 0.5,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                  ),
+                  ),
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: (){
+                  Navigator.pushNamed(context, '/Extraction');
+                },
+              // EXTRACTION BOX
+              child: Container(
+                margin: EdgeInsets.all(8.0),
+                child: Center(child: Text('Extraction', style: GoogleFonts.nunito(textStyle: TextStyle(
+                        color: Colors.white,
+                        letterSpacing: 0.5,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              ),
+              GestureDetector(
+                onTap: (){
+                  Navigator.pushNamed(context, '/Multiplication');
+                },
+              // MULTIPLICATION BOX
+              child: Container(
+                margin: EdgeInsets.all(8.0),
+                child: Center(child: Text('Multiplication', style: GoogleFonts.nunito(textStyle: TextStyle(
+                      color: Colors.white,
+                      letterSpacing: 0.5,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              ),
+              GestureDetector(
+                onTap: (){
+                  Navigator.pushNamed(context, '/Division');
+                },
+              // DIVISION BOX
+              child: Container(
+                margin: EdgeInsets.all(8.0),
+                child: Center(child: Text('Division', style: GoogleFonts.nunito(textStyle: TextStyle(
+                        color: Colors.white,
+                        letterSpacing: 0.5,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.orange,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

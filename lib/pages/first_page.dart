@@ -35,14 +35,9 @@ class _FirstPageState extends State<FirstPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple[100],
+      backgroundColor: Colors.grey.shade500,
       appBar: AppBar(
-        title: Text(
-          'Math Ninja',
-          style: GoogleFonts.nunito(
-            textStyle: TextStyle(color: Colors.white,letterSpacing: .5,fontSize: 24,fontWeight: FontWeight.bold),
-          ),
-        ),
+        title: Text('Math Ninja', style: GoogleFonts.nunito(textStyle: TextStyle(color: Colors.white,letterSpacing: .5,fontSize: 24,fontWeight: FontWeight.bold),),),
         backgroundColor: Colors.deepPurple,
         elevation: 0,
         centerTitle: true,
