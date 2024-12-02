@@ -13,6 +13,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Math Ninja', style: GoogleFonts.nunito(textStyle: TextStyle(color: Colors.white,letterSpacing: .5,fontSize: 24,fontWeight: FontWeight.bold),),),
+        backgroundColor: Colors.deepPurple,
+        elevation: 0,
+        centerTitle: true,
+      ),
       backgroundColor: Colors.grey.shade300,
       body: Column(
         children: [
@@ -39,8 +45,8 @@ class HomePage extends StatelessWidget {
                   ),
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
+                    color: Color.fromRGBO(254, 79, 115,1),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
               ),
@@ -61,7 +67,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.green,
+                  color: Color.fromRGBO(70, 138, 184,1),
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
@@ -83,7 +89,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.blue,
+                  color: Color.fromRGBO(223, 172, 139,1),
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
@@ -105,7 +111,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.orange,
+                  color: Color.fromRGBO(208, 197, 68,1),
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
