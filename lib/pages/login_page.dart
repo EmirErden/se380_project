@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:se380_project/components/button.dart';
+import 'package:se380_project/components/square_tile.dart';
 import 'package:se380_project/components/text_field.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final Function()? onTap;
+  const LoginPage({super.key, required this.onTap});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -26,16 +28,15 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 50),
+              Text('Math Ninja', style: GoogleFonts.nunito(textStyle: const TextStyle(color: Colors.black,letterSpacing: .5,fontSize: 34,fontWeight: FontWeight.bold),),),
+              const SizedBox(height: 35),
               //logo
               SvgPicture.asset(
-                'assets/icons/paper.svg',
-                width: 150,
-                height: 125,
+                'assets/icons/signs.svg',
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 35),
               //welcome message
-              Text("Welcome back, you have been missed!",style: GoogleFonts.nunito(
+              Text("Welcome back, we missed you!",style: GoogleFonts.nunito(
                 textStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -49,30 +50,75 @@ class _LoginPageState extends State<LoginPage> {
               //password text field
               const SizedBox(height: 10),
               MyTextField(controller: passwordTextController, hintText: 'Password', obscureText: true),
-              const SizedBox(height: 20),
+              //forgot password?
+              const Padding(
+                padding: EdgeInsets.all(6.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Forgot password?',
+                      style: TextStyle(color: Color(0xff636363),fontWeight: FontWeight.bold,fontSize: 14),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 15),
               //sign in button
               MyButton(onTap: () {}, text: 'Sign In'),
-              const SizedBox(height: 5),
+              const SizedBox(height: 30),
+              //or continue with
+              const Padding(
+                padding: EdgeInsets.all(4.0),
+                child: Row(
+                  children: [
+                    Expanded(child: Divider(
+                      thickness: 1,
+                      color: Colors.black,
+                      ),
+                    ),
+                    Text('  Or continue with  ',style: TextStyle(color: Colors.black,),),
+                    Expanded(child: Divider(
+                      thickness: 1,
+                      color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 40),
+              //google + apple sign in buttons
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  //google button
+                  SquareTile(imagePath: 'lib/images/google.png'),
+                  SizedBox(width: 50),
+                  //apple button
+                  SquareTile(imagePath: 'lib/images/apple.png',),
+                ],
+              ),
+              const SizedBox(height: 50),
+              //register now
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("Not a member? "),
-                  const SizedBox(width: 4),
+                  const Text("Not a member? ",style: TextStyle(fontSize: 14),),
+                  const SizedBox(width: 10),
                   GestureDetector(
-                    onTap: (){},
+                    onTap: widget.onTap,
                     child: const Text(
                       "Register now! ",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          decoration: TextDecoration.underline,
+                          decorationThickness: 2,
                           color: Colors.black),
                     ),
                   ),
-
-
                 ],
-              )
-
-              
+              ),
             ],
           ),
          ),
