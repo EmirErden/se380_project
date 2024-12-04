@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:se380_project/pages/profile_page.dart';
-import 'package:se380_project/pages/settings_page.dart';
+import 'package:se380_project/pages/schedule_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -19,34 +19,57 @@ class HomePage extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
       ),
-      backgroundColor: Colors.grey.shade300,
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Spacer(), //blank until end
+          //SUBTITLE
+          Padding(
+            padding: EdgeInsets.only(left: 30),
+            child: Text('Categories', style: GoogleFonts.nunito(textStyle: TextStyle(
+            color: Colors.black,
+            letterSpacing: 0.5,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            decoration: TextDecoration.underline,
+            decorationThickness: 4,
+          ),
+          ),
+          ),
+          ),
           GridView.count(
             crossAxisCount: 2, // box next to other one
             padding: EdgeInsets.all(16),
             shrinkWrap: true,
             children: [
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.pushNamed(context, '/Addition');
                 },
-                // ADDITION BOX
                 child: Container(
                   margin: EdgeInsets.all(8),
-                  child: Center(child: Text('Addition', style: GoogleFonts.nunito(textStyle: TextStyle(
-                    color: Colors.white,
-                    letterSpacing: 0.5,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                  ),
-                  ),
-                  ),
+                  alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: Color.fromRGBO(254, 79, 115,1),
+                    color: Color(0xffFE4F73),
                     borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.add, color: Colors.white),
+                      SizedBox(width: 4),
+                      Text(
+                        'Addition',
+                        style: GoogleFonts.nunito(
+                          textStyle: TextStyle(
+                            color: Colors.white,
+                            letterSpacing: 0.5,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -57,18 +80,28 @@ class HomePage extends StatelessWidget {
               // EXTRACTION BOX
               child: Container(
                 margin: EdgeInsets.all(8.0),
-                child: Center(child: Text('Extraction', style: GoogleFonts.nunito(textStyle: TextStyle(
-                        color: Colors.white,
-                        letterSpacing: 0.5,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Color(0xff468AB8),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.remove, color: Colors.white),
+                    SizedBox(width: 4),
+                    Text(
+                      'Extraction',
+                      style: GoogleFonts.nunito(
+                        textStyle: TextStyle(
+                          color: Colors.white,
+                          letterSpacing: 0.5,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(70, 138, 184,1),
-                  borderRadius: BorderRadius.circular(20),
+                  ],
                 ),
               ),
               ),
@@ -79,18 +112,28 @@ class HomePage extends StatelessWidget {
               // MULTIPLICATION BOX
               child: Container(
                 margin: EdgeInsets.all(8.0),
-                child: Center(child: Text('Multiplication', style: GoogleFonts.nunito(textStyle: TextStyle(
-                      color: Colors.white,
-                      letterSpacing: 0.5,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Color(0xffDFAC8B),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.clear, color: Colors.white),
+                    SizedBox(width: 4),
+                    Text(
+                      'Multiplication',
+                      style: GoogleFonts.nunito(
+                        textStyle: TextStyle(
+                          color: Colors.white,
+                          letterSpacing: 0.5,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(223, 172, 139,1),
-                  borderRadius: BorderRadius.circular(20),
+                  ],
                 ),
               ),
               ),
@@ -101,18 +144,28 @@ class HomePage extends StatelessWidget {
               // DIVISION BOX
               child: Container(
                 margin: EdgeInsets.all(8.0),
-                child: Center(child: Text('Division', style: GoogleFonts.nunito(textStyle: TextStyle(
-                        color: Colors.white,
-                        letterSpacing: 0.5,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Color(0xff30C562),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(CupertinoIcons.divide, color: Colors.white),
+                    SizedBox(width: 4),
+                    Text(
+                      'Division',
+                      style: GoogleFonts.nunito(
+                        textStyle: TextStyle(
+                          color: Colors.white,
+                          letterSpacing: 0.5,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(208, 197, 68,1),
-                  borderRadius: BorderRadius.circular(20),
+                  ],
                 ),
               ),
               ),

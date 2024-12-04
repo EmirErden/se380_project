@@ -26,7 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
         builder: (context) => AlertDialog(
           backgroundColor: Colors.grey[900],
           title: Text(
-            "Edit" + field,
+            "Edit " + field,
             style: TextStyle(color: Colors.white),
           ),
           content: TextField(
@@ -105,35 +105,35 @@ class _ProfilePageState extends State<ProfilePage> {
           //user name
           MyTextBox(
               text: 'utkuhan ergene',
-              sectionName: 'username',
+              sectionName: 'Username',
               onPressed:() => editField('username'),
           ),
 
           //password
           MyTextBox(
             text: 'asdasdasdaskldas',
-            sectionName: 'password',
+            sectionName: 'Password',
             onPressed:() => editField('password'),
           ),
 
           //email
           MyTextBox(
             text: 'utkuhanergene7@gmail.com',
-            sectionName: 'email',
+            sectionName: 'E-mail',
             onPressed:() => editField('email'),
           ),
 
           //phone number
           MyTextBox(
             text: '531 615 56 50',
-            sectionName: 'phone number',
+            sectionName: 'Phone Number',
             onPressed:() => editField('phone'),
           ),
 
           //birth day
           MyTextBox(
             text: '26/05/2003',
-            sectionName: 'birth day',
+            sectionName: 'Birth Day',
             onPressed:() => editField('birth'),
           ),
 
