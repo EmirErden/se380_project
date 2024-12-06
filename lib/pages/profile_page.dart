@@ -78,28 +78,27 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Color(0xfffffbf7),
         appBar: AppBar(
           title: Text('Profile page', style: GoogleFonts.nunito(textStyle: TextStyle(color: Colors.white,letterSpacing: .5,fontSize: 24,fontWeight: FontWeight.bold),),),
           backgroundColor: Colors.deepPurple,
           elevation: 0,
           centerTitle: true,
         ),
-      body: ListView(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           //icon
-          SizedBox(height: 20),
           Icon(
             Icons.person,
             size: 72,
           ),
           //Details
           SizedBox(height: 20),
-          Padding(
-              padding: EdgeInsets.only(left: 25),
-              child: Text(
-                'My Details',
-                style: TextStyle(color: Colors.black, fontSize: 16),
-              ),
+
+          Text(
+            'My Details',
+            style: TextStyle(color: Colors.black, fontSize: 16),
           ),
 
           //user name
