@@ -98,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                   SquareTile(imagePath: 'lib/images/apple.png',),
                 ],
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 40),
               //register now
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

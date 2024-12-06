@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:streak_calendar/streak_calendar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:se380_project/pages/profile_page.dart';
 import 'package:se380_project/pages/schedule_page.dart';
@@ -19,11 +20,32 @@ class HomePage extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
+        // Greeting message
         children: [
+          Row(
+            children: [
+              SizedBox(width: 25),
+              Icon(Icons.favorite,size: 28,),
+              Padding(padding: EdgeInsets.symmetric(vertical: 30,horizontal: 10),
+                child: Text("Hello, welcome back! ", style: GoogleFonts.nunito(
+                  textStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 28),
+                ),),
+              ),
+            ],
+          ),
+          //Streak calender
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: CleanCalendar(
+              startWeekday: WeekDay.monday,
+              datesForStreaks: [
+              ],
+            ),
+          ),
           Spacer(), //blank until end
           //SUBTITLE
+          SizedBox(height: 20),
           Padding(
             padding: EdgeInsets.only(left: 30),
             child: Text('Categories', style: GoogleFonts.nunito(textStyle: TextStyle(
