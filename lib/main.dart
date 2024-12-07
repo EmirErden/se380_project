@@ -13,13 +13,9 @@ import 'package:se380_project/pages/register_page.dart';
 import 'package:se380_project/pages/schedule_page.dart';
 import 'pages/home.dart';
 import 'pages/login_page.dart';
-<<<<<<< Updated upstream
 import 'package:firebase_core/firebase_core.dart';
 
-
-=======
 import './models/db_connect.dart';
->>>>>>> Stashed changes
 
 void main() {
   var db = DBConnect();
@@ -42,11 +38,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-<<<<<<< Updated upstream
-      home: FirstPage(),
-=======
       home: HomePage(),
->>>>>>> Stashed changes
       routes: {
         '/Addition': (context) => Addition(),
         '/Extraction': (context) => Extraction(),
