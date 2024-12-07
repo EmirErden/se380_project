@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:se380_project/auth/login_or_register.dart';
+import 'package:se380_project/models/question_model.dart';
 import 'package:se380_project/pages/addition.dart';
 import 'package:se380_project/pages/division.dart';
 import 'package:se380_project/pages/extraction.dart';
@@ -12,23 +13,40 @@ import 'package:se380_project/pages/register_page.dart';
 import 'package:se380_project/pages/schedule_page.dart';
 import 'pages/home.dart';
 import 'pages/login_page.dart';
+<<<<<<< Updated upstream
 import 'package:firebase_core/firebase_core.dart';
 
 
+=======
+import './models/db_connect.dart';
+>>>>>>> Stashed changes
 
 void main() {
+  var db = DBConnect();
+
+  db.fetchQuestions();
+
+  // db.addQuestions(Question(
+  //     id: '1',
+  //     firstNumber: '10',
+  //     secondNumber: '10',
+  //     options: {'8': false, '15': false, '20': true, '30': false}));
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
+<<<<<<< Updated upstream
       home: FirstPage(),
+=======
+      home: HomePage(),
+>>>>>>> Stashed changes
       routes: {
         '/Addition': (context) => Addition(),
         '/Extraction': (context) => Extraction(),
