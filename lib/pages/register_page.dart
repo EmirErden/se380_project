@@ -13,11 +13,24 @@ class RegisterPage extends StatefulWidget {
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
+
 class _RegisterPageState extends State<RegisterPage> {
   //text editing controller
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
   final confirmPasswordTextController = TextEditingController();
+  final usernameTextController = TextEditingController();
+
+  void _validateAndSignUp() {
+    String password = passwordTextController.text;
+    String confirmPassword = confirmPasswordTextController.text;
+
+    if (password == confirmPassword) {
+      print("Registration is successfully done");
+    } else {
+      print("Error");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +39,10 @@ class _RegisterPageState extends State<RegisterPage> {
         body: SafeArea(
           child: Center(
             child: Padding(padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: ListView(
                 children: [
-                  Text('Math Ninja', style: GoogleFonts.nunito(textStyle: const TextStyle(color: Colors.black,letterSpacing: .5,fontSize: 34,fontWeight: FontWeight.bold),),),
+                  const SizedBox(height: 60),
+                  Center(child: Text('Math Ninja', style: GoogleFonts.nunito(textStyle: const TextStyle(color: Colors.black,letterSpacing: .5,fontSize: 34,fontWeight: FontWeight.bold),),)),
                   const SizedBox(height: 50),
                   //logo
                   SvgPicture.asset(
@@ -48,17 +61,20 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   ),
                   const SizedBox(height: 25),
+                  //username
+                  MyTextField(controller: usernameTextController, hintText: 'Username', obscureText: false),
                   //email text field
+                  const SizedBox(height: 15),
                   MyTextField(controller: emailTextController, hintText: 'Email', obscureText: false),
                   //password text field
                   const SizedBox(height: 15),
                   MyTextField(controller: passwordTextController, hintText: 'Password', obscureText: true),
                   //confirm password text field
                   const SizedBox(height: 15),
-                  MyTextField(controller: passwordTextController, hintText: 'Confirm Password', obscureText: true),
+                  MyTextField(controller: confirmPasswordTextController, hintText: 'Confirm Password', obscureText: true),
                   const SizedBox(height: 25),
                   //sign in button
-                  MyButton(onTap: () {}, text: 'Sign up'),
+                  MyButton(onTap: _validateAndSignUp, text: 'Sign up'),
                   const SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

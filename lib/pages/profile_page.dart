@@ -86,8 +86,8 @@ class _ProfilePageState extends State<ProfilePage> {
           centerTitle: true,
         ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SizedBox(height: 50,),
           //icon
           Icon(
             Icons.person,
@@ -123,11 +123,11 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
 
           //phone number
-          MyTextBox(
+          /*MyTextBox(
             text: '531 615 56 50',
             sectionName: 'Phone Number',
             onPressed:() => editField('phone'),
-          ),
+          ),*/
 
           //birth day
           MyTextBox(

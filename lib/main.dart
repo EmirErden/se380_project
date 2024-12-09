@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: LoginOrRegister(),
       routes: {
         '/Addition': (context) => Addition(),
         '/Extraction': (context) => Extraction(),
