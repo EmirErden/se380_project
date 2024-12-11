@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ResultBox extends StatelessWidget {
   const ResultBox(
@@ -16,15 +17,16 @@ class ResultBox extends StatelessWidget {
     return AlertDialog(
       backgroundColor: color,
       content: Padding(
-        padding: EdgeInsets.all(70),
+        padding: const EdgeInsets.all(70),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
+            Text(
               "Result",
-              style: TextStyle(
-                  color: Colors.white, letterSpacing: .5, fontSize: 28),
+              style: GoogleFonts.nunito(
+                textStyle: const TextStyle(color: Colors.white, letterSpacing: .5, fontSize: 28),
+              ),
             ),
             const SizedBox(
               height: 20,
@@ -38,8 +40,9 @@ class ResultBox extends StatelessWidget {
                       : Colors.green,
               child: Text(
                 '$result/$questionLength',
-                style: const TextStyle(
-                    color: Colors.white, letterSpacing: .5, fontSize: 24),
+                style: GoogleFonts.nunito(
+                  textStyle: const TextStyle(color: Colors.black, letterSpacing: .5, fontSize: 24),
+                ),
               ),
             ),
             const SizedBox(
@@ -51,20 +54,38 @@ class ResultBox extends StatelessWidget {
                   : result < questionLength / 2
                       ? 'Work Harder!'
                       : 'Good Job!',
-              style: const TextStyle(
-                  color: Colors.white, letterSpacing: .5, fontSize: 24),
+              style: GoogleFonts.nunito(
+                textStyle: const TextStyle(color: Colors.white, letterSpacing: .5, fontSize: 24),
+              ),
             ),
             const SizedBox(
               height: 25,
             ),
-            GestureDetector(
-              onTap: () {},
-              child: const Text(
-                'Back to Menu',
-                style: TextStyle(
-                    color: Colors.deepOrange, letterSpacing: .5, fontSize: 24),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/HomePage', (Route<dynamic> route) => false,
+                  );
+                },
+                child: Text("Back to the home page",
+                  style: GoogleFonts.nunito(
+                    textStyle: const TextStyle(color: Colors.black, letterSpacing: .5, fontSize: 20),
+                ),
+                ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/Addition', (Route<dynamic> route) => false,
+                );
+              },
+              child: Text("Continue Solving ",
+              style: GoogleFonts.nunito(
+                textStyle: const TextStyle(color: Colors.black, letterSpacing: .5, fontSize: 20),
               ),
-            )
+              ),
+            ),
           ],
         ),
       ),

@@ -19,14 +19,7 @@ import './models/db_connect.dart';
 
 void main() {
   var db = DBConnect();
-
   db.fetchQuestions();
-
-  // db.addQuestions(Question(
-  //     id: '1',
-  //     firstNumber: '10',
-  //     secondNumber: '10',
-  //     options: {'8': false, '15': false, '20': true, '30': false}));
 
   runApp(const MyApp());
 }
@@ -40,6 +33,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: LoginOrRegister(),
       routes: {
+        '/HomePage': (context) => HomePage(),
         '/Addition': (context) => Addition(),
         '/Extraction': (context) => Extraction(),
         '/Multiplication': (context) => Multiplication(),
