@@ -9,7 +9,7 @@ import 'package:se380_project/pages/profile_page.dart';
 import 'package:se380_project/pages/schedule_page.dart';
 
 class FirstPage extends StatefulWidget {
-  FirstPage({super.key});
+  const FirstPage({super.key});
 
   @override
   State<FirstPage> createState() => _FirstPageState();

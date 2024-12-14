@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:se380_project/components/text_box.dart';
 
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -12,11 +13,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  //user
-  //final currentUser = FirebaseAuth.instance.currentUser!;
-
-  //all users
-  //final usersCollection = FirebaseFirestore.instance.collection("Users");
 
   //edit field
   Future<void> editField(String field) async {
@@ -26,7 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
         builder: (context) => AlertDialog(
           backgroundColor: Colors.grey[900],
           title: Text(
-            "Edit " + field,
+            "Edit $field",
             style: TextStyle(color: Colors.white),
           ),
           content: TextField(
@@ -64,15 +60,8 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
     );
 
-    //update in firestore
-    /*if(newValue.trim().length > 0){
-      //only update if there is something in textfield
-      await usersCollection.doc(currentUser.email).update({field: newValue});
-    }*/
-
 
   }
-
 
 
   @override
@@ -135,8 +124,7 @@ class _ProfilePageState extends State<ProfilePage> {
             sectionName: 'Birth Day',
             onPressed:() => editField('birth'),
           ),
-
-
+          SizedBox(height: 20,),
 
         ],
       )
