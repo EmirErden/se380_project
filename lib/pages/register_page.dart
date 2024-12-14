@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../components/button.dart';
 import '../components/text_field.dart';
 
+import 'package:dio/dio.dart';
+
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
   const RegisterPage({super.key, required this.onTap});
@@ -21,15 +23,33 @@ class _RegisterPageState extends State<RegisterPage> {
   final confirmPasswordTextController = TextEditingController();
   final usernameTextController = TextEditingController();
 
+  final dio = Dio();
+
   void _validateAndSignUp() {
+    String username = usernameTextController.text;
     String password = passwordTextController.text;
     String confirmPassword = confirmPasswordTextController.text;
+    String email = emailTextController.text;
 
-    if (password == confirmPassword) {
-      print("Registration is successfully done");
-    } else {
-      print("Error");
+    if (!RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$').hasMatch(email)){
+      print("Email is not valid. Try again.");
+    } else if (password != confirmPassword) {
+      print("Password's are not matching");
     }
+    else {
+      print("Registration is successfully done");
+      postHttp(username, email, password);
+    }
+  }
+
+  void getHttp() async {
+    final response = await dio.get('https://se380project-d7026-default-rtdb.europe-west1.firebasedatabase.app/users.json');
+    print(response.data);
+  }
+
+  void postHttp(String username, String email, String password) async {
+    final response = await dio.post('https://se380project-d7026-default-rtdb.europe-west1.firebasedatabase.app/users.json', data: {"username": username, "email": email, "password": password});
+    print(response.statusCode);
   }
 
   @override

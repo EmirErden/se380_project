@@ -15,12 +15,7 @@ import 'pages/home.dart';
 import 'pages/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import './models/db_connect.dart';
-
 void main() {
-  var db = DBConnect();
-  db.fetchQuestions();
-
   runApp(const MyApp());
 }
 
