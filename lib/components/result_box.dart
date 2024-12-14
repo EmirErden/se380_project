@@ -22,10 +22,12 @@ class ResultBox extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "Result",
-              style: GoogleFonts.nunito(
-                textStyle: const TextStyle(color: Colors.white, letterSpacing: .5, fontSize: 28),
+            Center(
+              child: Text(
+                "Result",
+                style: GoogleFonts.nunito(
+                  textStyle: const TextStyle(color: Colors.white, letterSpacing: .5, fontSize: 28),
+                ),
               ),
             ),
             const SizedBox(
@@ -38,24 +40,29 @@ class ResultBox extends StatelessWidget {
                   : result < questionLength / 2
                       ? Colors.red
                       : Colors.green,
-              child: Text(
-                '$result/$questionLength',
-                style: GoogleFonts.nunito(
-                  textStyle: const TextStyle(color: Colors.black, letterSpacing: .5, fontSize: 24),
+              child: Center(
+                child: Text(
+                  '$result/$questionLength',
+                  style: GoogleFonts.nunito(
+                    textStyle: const TextStyle(color: Colors.black, letterSpacing: .5, fontSize: 24),
+                  ),
                 ),
               ),
             ),
             const SizedBox(
               height: 20,
             ),
-            Text(
-              result == questionLength / 2
-                  ? 'Almost There!'
-                  : result < questionLength / 2
-                      ? 'Work Harder!'
-                      : 'Good Job!',
-              style: GoogleFonts.nunito(
-                textStyle: const TextStyle(color: Colors.white, letterSpacing: .5, fontSize: 24),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 29,vertical: 5),
+              child: Text(
+                result == questionLength / 2
+                    ? 'Almost There!'
+                    : result < questionLength / 2
+                        ? 'Work Harder!'
+                        : 'Good Job!',
+                style: GoogleFonts.nunito(
+                  textStyle: const TextStyle(color: Colors.white, letterSpacing: .5, fontSize: 24),
+                ),
               ),
             ),
             const SizedBox(
@@ -64,13 +71,18 @@ class ResultBox extends StatelessWidget {
             ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pushNamedAndRemoveUntil(
-                      '/HomePage', (Route<dynamic> route) => false,
+                      '/FirstPage', (Route<dynamic> route) => false,
                   );
                 },
-                child: Text("Back to the home page",
-                  style: GoogleFonts.nunito(
-                    textStyle: const TextStyle(color: Colors.black, letterSpacing: .5, fontSize: 20),
-                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(Icons.home),
+                  /*Text("Back to home",
+                    style: GoogleFonts.nunito(
+                      textStyle: const TextStyle(color: Colors.black, letterSpacing: .5, fontSize: 20),
+                  ),
+                  ),
+                   */
                 ),
             ),
             const SizedBox(height: 20),
@@ -80,11 +92,16 @@ class ResultBox extends StatelessWidget {
                   '/Addition', (Route<dynamic> route) => false,
                 );
               },
-              child: Text("Continue Solving ",
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(Icons.restart_alt_outlined),
+              ),
+              /*Text("Continue solving",
               style: GoogleFonts.nunito(
                 textStyle: const TextStyle(color: Colors.black, letterSpacing: .5, fontSize: 20),
               ),
               ),
+              */
             ),
           ],
         ),

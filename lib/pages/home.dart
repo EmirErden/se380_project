@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:streak_calendar/streak_calendar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:se380_project/pages/profile_page.dart';
@@ -16,6 +17,9 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xfffffbf7),
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.white, //change your color here
+        ),
         title: Text(
           'Math Ninja',
           style: GoogleFonts.nunito(
@@ -33,16 +37,13 @@ class HomePage extends StatelessWidget {
       body: Column(
         // Greeting message
         children: [
-          SizedBox(height: 15),
+          SizedBox(height: 25),
           Row(
             children: [
-              SizedBox(width: 25),
-              Icon(
-                Icons.favorite,
-                size: 28,
-              ),
+              SizedBox(width: 35),
+              Icon(LineIcons.userNinja, size: 35),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+                padding: EdgeInsets.all(15),
                 child: Text(
                   "Hello, welcome back! ",
                   style: GoogleFonts.nunito(
@@ -55,24 +56,31 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
+          //Ninja svg
+          SizedBox(height: 20),
+          SvgPicture.asset(
+            'assets/icons/ninja.svg',
+            width: 150,
+            height: 125,
+          ),
           Spacer(), //blank until end
           //SUBTITLE
-            Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: Text(
-                'Categories',
-                style: GoogleFonts.nunito(
-                  textStyle: TextStyle(
-                    color: Colors.black,
-                    letterSpacing: 0.5,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    decoration: TextDecoration.underline,
-                    decorationThickness: 4,
-                  ),
+          Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Text(
+              'Categories',
+              style: GoogleFonts.nunito(
+                textStyle: TextStyle(
+                  color: Colors.black,
+                  letterSpacing: 0.5,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  decoration: TextDecoration.underline,
+                  decorationThickness: 4,
                 ),
               ),
             ),
+          ),
           GridView.count(
             crossAxisCount: 2, // box next to other one
             padding: EdgeInsets.all(16),

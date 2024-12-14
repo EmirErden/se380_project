@@ -19,15 +19,15 @@ class SchedulePage extends StatelessWidget {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: ListView(
+        child: Column(
           children: [
-            SizedBox(height: 30),
-            const Center(child:Icon(Icons.calendar_today,size: 40,)),
-            //Text
+            SizedBox(height: 50),
+            const Center(child:Icon(Icons.calendar_today,size: 50,)),
+            //Text line
             Row(
               children: [
-                const SizedBox(width: 25),
-                Padding(padding: const EdgeInsets.symmetric(vertical:20),
+                const SizedBox(width: 25,),
+                Padding(padding: const EdgeInsets.symmetric(vertical:40, horizontal: 20),
                   child: Text("You can see the dates you\nlogged in.", style: GoogleFonts.nunito(
                     textStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 24),
                   ),),

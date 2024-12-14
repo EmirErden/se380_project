@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:se380_project/components/text_box.dart';
 
 
@@ -79,16 +80,17 @@ class _ProfilePageState extends State<ProfilePage> {
           SizedBox(height: 50,),
           //icon
           Icon(
-            Icons.person,
-            size: 72,
+            LineIcons.userNinja,
+            size: 78,
           ),
           //Details
-          SizedBox(height: 20),
+          SizedBox(height: 10),
 
           Text(
             'My Details',
-            style: TextStyle(color: Colors.black, fontSize: 16),
+            style: TextStyle(color: Colors.black, fontSize: 18),
           ),
+          SizedBox(height: 20),
 
           //user name
           MyTextBox(

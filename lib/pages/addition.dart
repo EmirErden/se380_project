@@ -34,8 +34,8 @@ class _AdditionState extends State<Addition> {
   //index for checking the question number
   int index = 0;
 
-  //score counter
-  int score = 0;
+  //point counter
+  int point = 0;
 
   //boolean for checking if the answer is already selected
   bool isSelected = false;
@@ -48,7 +48,7 @@ class _AdditionState extends State<Addition> {
         context: context,
         builder: (context) => ResultBox(
           color: Color(0xffFE4F73),
-          result: score,
+          result: point,
           questionLength: _questions.length,
         ),
       );
@@ -60,9 +60,9 @@ class _AdditionState extends State<Addition> {
         });
       } else {
         Fluttertoast.showToast(
-          msg: "Please select an answer.",
+          msg: "Please select an answer!",
           toastLength: Toast.LENGTH_SHORT,
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.orange,
           fontSize: 24,
           gravity: ToastGravity.CENTER,
         );
@@ -74,14 +74,30 @@ class _AdditionState extends State<Addition> {
   void changeColorAndUpdate(bool value) {
     if (!isSelected) {
       if (value) {
-        score++;
+        point++;
         setState(() {
           isSelected = true;
         });
+        Fluttertoast.showToast(
+          msg: "Correct Answer!\n+1 Points", // Message for the correct answer
+          toastLength: Toast.LENGTH_SHORT,
+          backgroundColor: Colors.green, // Optional: Change color for correct
+          textColor: Colors.white,
+          fontSize: 24,
+          gravity: ToastGravity.CENTER, // Optional: Position of the toast
+        );
       } else {
         setState(() {
           isSelected = true;
         });
+        Fluttertoast.showToast(
+          msg: "Wrong Answer!", // Message for the wrong answer
+          toastLength: Toast.LENGTH_SHORT,
+          backgroundColor: Colors.red, // Optional: Change color for wrong
+          textColor: Colors.white,
+          fontSize: 24,
+          gravity: ToastGravity.CENTER, // Optional: Position of the toast
+        );
       }
     }
   }
@@ -91,6 +107,13 @@ class _AdditionState extends State<Addition> {
     return Scaffold(
       backgroundColor: Color(0xffFE4F73),
       appBar: AppBar(
+        //its using on second restart
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pushNamed(context, '/FirstPage');
+          },
+        ),
         title: Text(
           'Question ${index + 1}/${_questions.length}',
           style: GoogleFonts.nunito(
@@ -105,9 +128,9 @@ class _AdditionState extends State<Addition> {
           Padding(
             padding: const EdgeInsets.all(18),
             child: Text(
-              "Score: $score",
+              "Point: $point",
               style: TextStyle(
-                  color: Colors.white, letterSpacing: .5, fontSize: 18),
+                  color: Colors.white, letterSpacing: .5, fontSize: 18,fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -121,7 +144,7 @@ class _AdditionState extends State<Addition> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Please Select the correct answer",
+              "Please select the correct answer",
               style: GoogleFonts.nunito(
                   textStyle: TextStyle(
                       color: Colors.white, letterSpacing: .5, fontSize: 24)),
@@ -197,7 +220,7 @@ class _AdditionState extends State<Addition> {
         ),
       ),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
         child: NextButton(
           nextQuestion: nextQuestion,
         ),
