@@ -1,13 +1,17 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:se380_project/components/button.dart';
 import 'package:se380_project/components/square_tile.dart';
 import 'package:se380_project/components/text_field.dart';
+import 'package:se380_project/models/User.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
   const LoginPage({super.key, required this.onTap});
+
+
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -17,6 +21,38 @@ class _LoginPageState extends State<LoginPage> {
   //text editing controller
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
+
+  final dio = Dio();
+
+  void signIn() async {
+    String email = emailTextController.text;
+    String password = passwordTextController.text;
+
+    Map<String, dynamic>? data;
+
+    final response = await dio.get<Map<String, dynamic>>('https://se380project-d7026-default-rtdb.europe-west1.firebasedatabase.app/users.json?orderBy="email"&equalTo="$email"');
+    data = response.data;
+
+
+    if(data != null && data.isNotEmpty){
+      //if data is not null get the first key of the json to get past the firebase's customID.
+      final userKey = data.keys.first;
+      //And then use this key to get the the user data from the data.
+      final userData = data[userKey];
+
+      final User user = UserMapper.fromMap(userData);
+
+      if(user.password == password){
+        Navigator.pushNamed(context, "/FirstPage");
+      } else {
+        print("Password and E-mail is not matching");
+      }
+    } else {
+      print("No user found with this email");
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 15),
               //sign in button
-              MyButton(onTap: () {}, text: 'Sign In'),
+              MyButton(onTap:signIn , text: 'Sign In'),
               const SizedBox(height: 30),
               //or continue with
               const Padding(
