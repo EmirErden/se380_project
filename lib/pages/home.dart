@@ -4,13 +4,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:se380_project/pages/addition.dart';
 import 'package:streak_calendar/streak_calendar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:se380_project/pages/profile_page.dart';
 import 'package:se380_project/pages/schedule_page.dart';
 
+import '../models/User.dart';
+
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({super.key, required this.user});
+
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +99,10 @@ class HomePage extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/Addition');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Addition(user: user)));
                 },
                 child: Container(
                   margin: EdgeInsets.all(8),

@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:streak_calendar/streak_calendar.dart';
 
-class SchedulePage extends StatelessWidget {
-  const SchedulePage({super.key});
+import '../models/User.dart';
 
+class SchedulePage extends StatelessWidget {
+  const SchedulePage({super.key, required this.user});
+
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -40,15 +43,29 @@ class SchedulePage extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 50),
-            const Center(child:Icon(Icons.calendar_today,size: 50,)),
+            const Center(
+                child: Icon(
+              Icons.calendar_today,
+              size: 50,
+            )),
             //Text line
             Row(
               children: [
-                const SizedBox(width: 25,),
-                Padding(padding: const EdgeInsets.symmetric(vertical:40, horizontal: 20),
-                  child: Text("You can see the dates you\nlogged in.", style: GoogleFonts.nunito(
-                    textStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 24),
-                  ),),
+                const SizedBox(
+                  width: 25,
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                  child: Text(
+                    "You can see the dates you\nlogged in.",
+                    style: GoogleFonts.nunito(
+                      textStyle: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -58,8 +75,7 @@ class SchedulePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 25),
               child: CleanCalendar(
                 startWeekday: WeekDay.monday,
-                datesForStreaks: [
-                ],
+                datesForStreaks: [],
               ),
             ),
           ],

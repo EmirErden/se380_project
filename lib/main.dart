@@ -28,10 +28,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: LoginOrRegister(),
       routes: {
+        //every class that has /firstPage and /Homepage and /addition will change!!!!!!!!!!
         '/LoginOrRegister': (context) => LoginOrRegister(),
-        '/FirstPage': (context) => FirstPage(),
-        '/HomePage': (context) => HomePage(),
-        '/Addition': (context) => Addition(),
         '/Extraction': (context) => Extraction(),
         '/Multiplication': (context) => Multiplication(),
         '/Division': (context) => Division(),

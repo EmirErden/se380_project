@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:se380_project/pages/addition.dart';
+import 'package:se380_project/pages/first_page.dart';
+
+import '../models/User.dart';
 
 class ResultBox extends StatelessWidget {
   const ResultBox(
       {super.key,
       required this.color,
       required this.result,
-      required this.questionLength});
+      required this.questionLength,
+      required this.user});
 
   final Color color;
   final int result;
   final int questionLength;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +32,8 @@ class ResultBox extends StatelessWidget {
               child: Text(
                 "Result",
                 style: GoogleFonts.nunito(
-                  textStyle: const TextStyle(color: Colors.white, letterSpacing: .5, fontSize: 28),
+                  textStyle: const TextStyle(
+                      color: Colors.white, letterSpacing: .5, fontSize: 28),
                 ),
               ),
             ),
@@ -44,7 +51,8 @@ class ResultBox extends StatelessWidget {
                 child: Text(
                   '$result/$questionLength',
                   style: GoogleFonts.nunito(
-                    textStyle: const TextStyle(color: Colors.black, letterSpacing: .5, fontSize: 24),
+                    textStyle: const TextStyle(
+                        color: Colors.black, letterSpacing: .5, fontSize: 24),
                   ),
                 ),
               ),
@@ -53,43 +61,49 @@ class ResultBox extends StatelessWidget {
               height: 20,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                child: Text(
-                  result == questionLength / 2
-                      ? 'Almost There!'
-                      : result < questionLength / 2
-                          ? 'Work Harder!'
-                          : 'Good Job!',
-                  style: GoogleFonts.nunito(
-                    textStyle: const TextStyle(color: Colors.white, letterSpacing: .5, fontSize: 24),
-                  ),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: Text(
+                result == questionLength / 2
+                    ? 'Almost There!'
+                    : result < questionLength / 2
+                        ? 'Work Harder!'
+                        : 'Good Job!',
+                style: GoogleFonts.nunito(
+                  textStyle: const TextStyle(
+                      color: Colors.white, letterSpacing: .5, fontSize: 24),
+                ),
               ),
             ),
             const SizedBox(
               height: 25,
             ),
             ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                      '/FirstPage', (Route<dynamic> route) => false,
-                  );
-                },
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Icon(Icons.home),
-                  /*Text("Back to home",
+              onPressed: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) => FirstPage(user: user)),
+                  (Route<dynamic> route) => false,
+                );
+              },
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(Icons.home),
+                /*Text("Back to home",
                     style: GoogleFonts.nunito(
                       textStyle: const TextStyle(color: Colors.black, letterSpacing: .5, fontSize: 20),
                   ),
                   ),
                    */
-                ),
+              ),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/Addition', (Route<dynamic> route) => false,
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                    builder: (context) => Addition(user: user),
+                  ),
+                  (Route<dynamic> route) => false,
                 );
               },
               child: const Padding(

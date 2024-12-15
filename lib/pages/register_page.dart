@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:se380_project/models/User.dart';
 
 import '../components/button.dart';
 import '../components/text_field.dart';
@@ -39,16 +40,12 @@ class _RegisterPageState extends State<RegisterPage> {
     else {
       print("Registration is successfully done");
       postHttp(username, email, password);
+      widget.onTap;
     }
   }
 
-  void getHttp() async {
-    final response = await dio.get('https://se380project-d7026-default-rtdb.europe-west1.firebasedatabase.app/users.json');
-    print(response.data);
-  }
-
   void postHttp(String username, String email, String password) async {
-    final response = await dio.post('https://se380project-d7026-default-rtdb.europe-west1.firebasedatabase.app/users.json', data: {"username": username, "email": email, "password": password});
+    final response = await dio.post('https://se380project-d7026-default-rtdb.europe-west1.firebasedatabase.app/users.json', data: User(username, email, password, 0, 1, 1, 1, 1).toJson());
     print(response.statusCode);
   }
 

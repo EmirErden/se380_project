@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../models/User.dart';
 import '../models/question_model.dart';
 import '../components/next_button.dart';
 import '../components/option_card.dart';
@@ -9,7 +10,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../components/result_box.dart';
 
 class Addition extends StatefulWidget {
-  const Addition({super.key});
+  const Addition({super.key, required this.user});
+
+  final User user;
 
   @override
   State<StatefulWidget> createState() => _AdditionState();
@@ -40,6 +43,15 @@ class _AdditionState extends State<Addition> {
   //boolean for checking if the answer is already selected
   bool isSelected = false;
 
+  //user object for changing it's point and additionIndex
+  late final User user;
+
+  @override
+  void initState() {
+    super.initState();
+    user = widget.user;
+  }
+
   //function to show the next question.
   void nextQuestion() {
     if (index == _questions.length - 1) {
@@ -50,6 +62,7 @@ class _AdditionState extends State<Addition> {
           color: Color(0xffFE4F73),
           result: point,
           questionLength: _questions.length,
+          user: user,
         ),
       );
     } else {
@@ -130,7 +143,10 @@ class _AdditionState extends State<Addition> {
             child: Text(
               "Point: $point",
               style: TextStyle(
-                  color: Colors.white, letterSpacing: .5, fontSize: 18,fontWeight: FontWeight.bold),
+                  color: Colors.white,
+                  letterSpacing: .5,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -220,7 +236,7 @@ class _AdditionState extends State<Addition> {
         ),
       ),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: NextButton(
           nextQuestion: nextQuestion,
         ),

@@ -8,8 +8,12 @@ import 'package:se380_project/pages/home.dart';
 import 'package:se380_project/pages/profile_page.dart';
 import 'package:se380_project/pages/schedule_page.dart';
 
+import '../models/User.dart';
+
 class FirstPage extends StatefulWidget {
-  const FirstPage({super.key});
+  const FirstPage({super.key, required this.user});
+
+  final User user;
 
   @override
   State<FirstPage> createState() => _FirstPageState();
@@ -19,27 +23,33 @@ class _FirstPageState extends State<FirstPage> {
   // this integer keeps track of the current page
   int _selectedIndex = 0;
 
-  void _navigateBottomBar(int index){
+  late final List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+    _pages = [
+      //home page
+      HomePage(user: widget.user),
+      //profile page
+      ProfilePage(user: widget.user),
+      //settings page
+      SchedulePage(user: widget.user),
+    ];
+  }
+
+  void _navigateBottomBar(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
-  final List _pages = [
-    //home page
-    HomePage(),
-    //profile page
-    ProfilePage(),
-    //settings page
-    SchedulePage(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade500,
-      body: _pages[_selectedIndex],
-      /*bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.grey.shade500,
+        body: _pages[_selectedIndex],
+        /*bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedIndex,
           onTap: _navigateBottomBar,
           items: [
@@ -52,36 +62,34 @@ class _FirstPageState extends State<FirstPage> {
           ],
       ),*/
         bottomNavigationBar: GNav(
-
-          onTabChange: (selectedIndex){
-            _navigateBottomBar(selectedIndex);
-          },
-          backgroundColor: Colors.white,
-          haptic: true, // haptic feedback
-          tabBorderRadius: 30,
-          curve: Curves.easeOutExpo, // tab animation curves
-          duration: Duration(milliseconds: 400), // tab animation duration
-          gap: 8, // the tab button gap between icon and text
-          color: Colors.grey.shade800, // unselected icon color
-          activeColor: Colors.purple, // selected icon and text color
-          iconSize: 24, // tab button icon size
-          tabBackgroundColor: Color(0xffe1c4ff), // selected tab background color
-          padding: EdgeInsets.all(20), // navigation bar padding
-          tabs: [
-            GButton(
-              icon: LineIcons.home,
-              text: 'Home',
-            ),
-            GButton(
-              icon: LineIcons.user,
-              text: 'Profile',
-            ),
-            GButton(
-              icon: LineIcons.calendar,
-              text: 'Schedule',
-            ),
-          ]
-      )
-    );
+            onTabChange: (selectedIndex) {
+              _navigateBottomBar(selectedIndex);
+            },
+            backgroundColor: Colors.white,
+            haptic: true, // haptic feedback
+            tabBorderRadius: 30,
+            curve: Curves.easeOutExpo, // tab animation curves
+            duration: Duration(milliseconds: 400), // tab animation duration
+            gap: 8, // the tab button gap between icon and text
+            color: Colors.grey.shade800, // unselected icon color
+            activeColor: Colors.purple, // selected icon and text color
+            iconSize: 24, // tab button icon size
+            tabBackgroundColor:
+                Color(0xffe1c4ff), // selected tab background color
+            padding: EdgeInsets.all(20), // navigation bar padding
+            tabs: [
+              GButton(
+                icon: LineIcons.home,
+                text: 'Home',
+              ),
+              GButton(
+                icon: LineIcons.user,
+                text: 'Profile',
+              ),
+              GButton(
+                icon: LineIcons.calendar,
+                text: 'Schedule',
+              ),
+            ]));
   }
 }
