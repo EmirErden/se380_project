@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: LoginOrRegister(),
       routes: {
+        '/LoginOrRegister': (context) => LoginOrRegister(),
         '/FirstPage': (context) => FirstPage(),
         '/HomePage': (context) => HomePage(),
         '/Addition': (context) => Addition(),

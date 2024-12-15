@@ -17,7 +17,7 @@ class ResultBox extends StatelessWidget {
     return AlertDialog(
       backgroundColor: color,
       content: Padding(
-        padding: const EdgeInsets.all(70),
+        padding: const EdgeInsets.all(50),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -53,16 +53,16 @@ class ResultBox extends StatelessWidget {
               height: 20,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 29,vertical: 5),
-              child: Text(
-                result == questionLength / 2
-                    ? 'Almost There!'
-                    : result < questionLength / 2
-                        ? 'Work Harder!'
-                        : 'Good Job!',
-                style: GoogleFonts.nunito(
-                  textStyle: const TextStyle(color: Colors.white, letterSpacing: .5, fontSize: 24),
-                ),
+              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                child: Text(
+                  result == questionLength / 2
+                      ? 'Almost There!'
+                      : result < questionLength / 2
+                          ? 'Work Harder!'
+                          : 'Good Job!',
+                  style: GoogleFonts.nunito(
+                    textStyle: const TextStyle(color: Colors.white, letterSpacing: .5, fontSize: 24),
+                  ),
               ),
             ),
             const SizedBox(

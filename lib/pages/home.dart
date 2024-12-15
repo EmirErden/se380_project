@@ -17,6 +17,12 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xfffffbf7),
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.output_outlined, color: Colors.white),
+          onPressed: () {
+            Navigator.popAndPushNamed(context, '/LoginOrRegister');
+          },
+        ),
         iconTheme: IconThemeData(
           color: Colors.white, //change your color here
         ),

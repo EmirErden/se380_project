@@ -111,7 +111,7 @@ class _AdditionState extends State<Addition> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Navigator.pushNamed(context, '/FirstPage');
+            Navigator.popAndPushNamed(context, '/FirstPage');
           },
         ),
         title: Text(
