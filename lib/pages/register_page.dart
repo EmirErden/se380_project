@@ -8,6 +8,8 @@ import '../components/text_field.dart';
 
 import 'package:dio/dio.dart';
 
+import 'first_page.dart';
+
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
   const RegisterPage({super.key, required this.onTap});
@@ -15,7 +17,6 @@ class RegisterPage extends StatefulWidget {
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
-
 
 class _RegisterPageState extends State<RegisterPage> {
   //text editing controller
@@ -26,26 +27,78 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final dio = Dio();
 
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword =
+      true;
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _obscurePassword = !_obscurePassword;
+    });
+  }
+
+  void _toggleConfirmPasswordVisibility() {
+    setState(() {
+      _obscureConfirmPassword =
+          !_obscureConfirmPassword;
+    });
+  }
+
   void _validateAndSignUp() {
     String username = usernameTextController.text;
     String password = passwordTextController.text;
     String confirmPassword = confirmPasswordTextController.text;
     String email = emailTextController.text;
 
-    if (!RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$').hasMatch(email)){
+    if (!RegExp('[a-zA-Z]')
+        .hasMatch(username)) {
+      print("Username is not valid. Try again.");
+      _alertSnackBar("Username is not valid. Try again!");
+    }
+    else if (!RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+        .hasMatch(email)) {
       print("Email is not valid. Try again.");
+      _alertSnackBar("Email is not valid. Try again!");
     } else if (password != confirmPassword) {
       print("Password's are not matching");
-    }
-    else {
+      _alertSnackBar("Password's are not matching!");
+    } else {
       print("Registration is successfully done");
+      _showSnackBar("Registration is successfully done");
       postHttp(username, email, password);
       widget.onTap;
+      //it should be push to home page
+      /*Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => FirstPage(user:),
+        ),
+      );*/
     }
+  }
+  void _alertSnackBar(String message) {
+    final snackBar = SnackBar(
+      content: Text(message,style: const TextStyle(fontSize: 16),),
+      duration: const Duration(seconds: 3),
+      backgroundColor: Colors.red.shade600,
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar); // shows snack bar
+  }
+  void _showSnackBar(String message) {
+    final snackBar = SnackBar(
+      content: Text(message,style: const TextStyle(fontSize: 16),),
+      duration: const Duration(seconds: 3),
+      backgroundColor: Colors.green,
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar); // shows snack bar
   }
 
   void postHttp(String username, String email, String password) async {
-    final response = await dio.post('https://se380project-d7026-default-rtdb.europe-west1.firebasedatabase.app/users.json', data: User(username, email, password, 0, 1, 1, 1, 1).toJson());
+    final response = await dio.post(
+        'https://se380project-d7026-default-rtdb.europe-west1.firebasedatabase.app/users.json',
+        data: User(username, email, password, 0, 1, 1, 1, 1).toJson());
     print(response.statusCode);
   }
 
@@ -55,11 +108,22 @@ class _RegisterPageState extends State<RegisterPage> {
         backgroundColor: Colors.lightBlue.shade300,
         body: SafeArea(
           child: Center(
-            child: Padding(padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: ListView(
                 children: [
                   const SizedBox(height: 60),
-                  Center(child: Text('Math Ninja', style: GoogleFonts.nunito(textStyle: const TextStyle(color: Colors.black,letterSpacing: .5,fontSize: 34,fontWeight: FontWeight.bold),),)),
+                  Center(
+                      child: Text(
+                    'Math Ninja',
+                    style: GoogleFonts.nunito(
+                      textStyle: const TextStyle(
+                          color: Colors.black,
+                          letterSpacing: .5,
+                          fontSize: 34,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  )),
                   const SizedBox(height: 50),
                   //logo
                   SvgPicture.asset(
@@ -69,26 +133,51 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   const SizedBox(height: 30),
                   //welcome message
-                  Text("Let's create an account!",style: GoogleFonts.nunito(
-                    textStyle: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 0.5,
+                  Center(
+                    child: Text(
+                      "Let's create an account!",
+                      style: GoogleFonts.nunito(
+                        textStyle: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
                     ),
-                  ),
                   ),
                   const SizedBox(height: 25),
                   //username
-                  MyTextField(controller: usernameTextController, hintText: 'Username', obscureText: false),
+                  MyTextField(
+                    controller: usernameTextController,
+                    hintText: 'Username',
+                    obscureText: false,
+                    toggleVisibility: null,
+                    showPassword: false,
+                  ),
                   //email text field
                   const SizedBox(height: 15),
-                  MyTextField(controller: emailTextController, hintText: 'Email', obscureText: false),
+                  MyTextField(
+                      controller: emailTextController,
+                      hintText: 'Email',
+                      obscureText: false,
+                      toggleVisibility: null,
+                      showPassword: false),
                   //password text field
                   const SizedBox(height: 15),
-                  MyTextField(controller: passwordTextController, hintText: 'Password', obscureText: true),
+                  MyTextField(
+                      controller: passwordTextController,
+                      hintText: 'Password',
+                      obscureText: _obscurePassword,
+                      toggleVisibility: _togglePasswordVisibility,
+                      showPassword: !_obscurePassword),
                   //confirm password text field
                   const SizedBox(height: 15),
-                  MyTextField(controller: confirmPasswordTextController, hintText: 'Confirm Password', obscureText: true),
+                  MyTextField(
+                      controller: confirmPasswordTextController,
+                      hintText: 'Confirm Password',
+                      obscureText: _obscureConfirmPassword,
+                      toggleVisibility: _toggleConfirmPasswordVisibility,
+                      showPassword: !_obscureConfirmPassword),
                   const SizedBox(height: 25),
                   //sign in button
                   MyButton(onTap: _validateAndSignUp, text: 'Sign up'),
@@ -103,10 +192,10 @@ class _RegisterPageState extends State<RegisterPage> {
                         child: const Text(
                           "Login now! ",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              decoration: TextDecoration.underline,
-                              decorationThickness: 2,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            decoration: TextDecoration.underline,
+                            decorationThickness: 2,
                           ),
                         ),
                       ),
@@ -116,7 +205,6 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
           ),
-        )
-    );
+        ));
   }
 }

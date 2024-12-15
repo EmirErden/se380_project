@@ -22,6 +22,14 @@ class _LoginPageState extends State<LoginPage> {
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
 
+  bool _obscurePassword = true;
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _obscurePassword = !_obscurePassword;
+    });
+  }
+
   final dio = Dio();
 
   void signIn() async {
@@ -41,8 +49,10 @@ class _LoginPageState extends State<LoginPage> {
       final userData = data[userKey];
 
       final User user = UserMapper.fromMap(userData);
+      
 
       if (user.password == password) {
+        _showSnackBar("Successfully signed in!");
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -51,10 +61,29 @@ class _LoginPageState extends State<LoginPage> {
         );
       } else {
         print("Password and E-mail is not matching");
+        _alertSnackBar("Password and E-mail is not matching!");
       }
     } else {
       print("No user found with this email");
+      _alertSnackBar("No user found with this email!");
     }
+  }
+  void _alertSnackBar(String message) {
+    final snackBar = SnackBar(
+      content: Text(message,style: const TextStyle(fontSize: 16),),
+      duration: const Duration(seconds: 3),
+      backgroundColor: Colors.red.shade600,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar); // shows snack bar
+  }
+  void _showSnackBar(String message) {
+    final snackBar = SnackBar(
+      content: Text(message,style: const TextStyle(fontSize: 16),),
+      duration: const Duration(seconds: 3),
+      backgroundColor: Colors.green,
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar); // shows snack bar
   }
 
   @override
@@ -100,13 +129,19 @@ class _LoginPageState extends State<LoginPage> {
                   MyTextField(
                       controller: emailTextController,
                       hintText: 'Email',
-                      obscureText: false),
+                      obscureText: false,
+                      toggleVisibility: null,
+                      showPassword: false,
+                  ),
                   //password text field
                   const SizedBox(height: 10),
                   MyTextField(
                       controller: passwordTextController,
                       hintText: 'Password',
-                      obscureText: true),
+                      obscureText: _obscurePassword,
+                      toggleVisibility: _togglePasswordVisibility,
+                      showPassword: !_obscurePassword,
+                  ),
                   //forgot password?
                   const Padding(
                     padding: EdgeInsets.all(6.0),
@@ -198,3 +233,5 @@ class _LoginPageState extends State<LoginPage> {
         ));
   }
 }
+
+
