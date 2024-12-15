@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:se380_project/pages/first_page.dart';
 import '../models/User.dart';
 import '../models/question_model.dart';
 import '../components/next_button.dart';
@@ -19,21 +21,6 @@ class Addition extends StatefulWidget {
 }
 
 class _AdditionState extends State<Addition> {
-  final List<Question> _questions = [
-    Question(
-      id: '1',
-      firstNumber: '25',
-      secondNumber: '  5',
-      options: {'5': false, '24': false, '30': true, '40': false},
-    ),
-    Question(
-      id: '1',
-      firstNumber: '12',
-      secondNumber: '15',
-      options: {'10': false, '17': false, '27': true, '22': false},
-    )
-  ];
-
   //index for checking the question number
   int index = 0;
 
@@ -50,7 +37,50 @@ class _AdditionState extends State<Addition> {
   void initState() {
     super.initState();
     user = widget.user;
+    _loadQuestions(); // Initiating the loading of questions
   }
+
+  final dio = Dio();
+  Map<String, dynamic>? data;
+
+  void _loadQuestions() async {
+    print('Fetching questions...');
+    await getQuestion();
+    print('Questions fetched!');
+  }
+
+  Future<void> getQuestion() async {
+    try {
+      final response = await dio.get(
+        'https://se380project-d7026-default-rtdb.europe-west1.firebasedatabase.app/addQuestions.json?orderBy="id"&startAt=1&endAt=5',
+      );
+      data = response.data;
+
+      if (data != null) {
+        print('Data received: $data');
+        setState(() {});
+      } else {
+        print('No data received');
+      }
+    } catch (e) {
+      print('Error fetching questions: $e');
+    }
+  }
+
+  final List<Question> _questions = [
+    Question(
+      id: '1',
+      firstNumber: '25',
+      secondNumber: '  5',
+      options: {'5': false, '24': false, '30': true, '40': false},
+    ),
+    Question(
+      id: '1',
+      firstNumber: '12',
+      secondNumber: '15',
+      options: {'10': false, '17': false, '27': true, '22': false},
+    )
+  ];
 
   //function to show the next question.
   void nextQuestion() {
@@ -61,7 +91,7 @@ class _AdditionState extends State<Addition> {
         builder: (context) => ResultBox(
           color: Color(0xffFE4F73),
           result: point,
-          questionLength: _questions.length,
+          questionLength: 5,
           user: user,
         ),
       );
@@ -124,7 +154,13 @@ class _AdditionState extends State<Addition> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Navigator.popAndPushNamed(context, '/FirstPage');
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FirstPage(user: user),
+              ),
+            );
           },
         ),
         title: Text(
@@ -231,7 +267,7 @@ class _AdditionState extends State<Addition> {
                           : Color(0xffb82424)
                       : Colors.white,
                 ),
-              )
+              ),
           ],
         ),
       ),
