@@ -50,7 +50,8 @@ class _RegisterPageState extends State<RegisterPage> {
     String confirmPassword = confirmPasswordTextController.text;
     String email = emailTextController.text;
 
-    if (!RegExp('[a-zA-Z]')
+
+    if (!RegExp('[a-zA-Z0-9]')
         .hasMatch(username)) {
       print("Username is not valid. Try again.");
       _alertSnackBar("Username is not valid. Try again!");
@@ -66,14 +67,8 @@ class _RegisterPageState extends State<RegisterPage> {
       print("Registration is successfully done");
       _showSnackBar("Registration is successfully done");
       postHttp(username, email, password);
-      widget.onTap;
       //it should be push to home page
-      /*Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => FirstPage(user:),
-        ),
-      );*/
+      Navigator.pushNamed(context, '/LoginOrRegister');
     }
   }
   void _alertSnackBar(String message) {

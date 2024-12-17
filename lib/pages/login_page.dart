@@ -94,17 +94,19 @@ class _LoginPageState extends State<LoginPage> {
           child: Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: ListView(
                 children: [
-                  Text(
-                    'Math Ninja',
-                    style: GoogleFonts.nunito(
-                      textStyle: const TextStyle(
-                          color: Colors.black,
-                          letterSpacing: .5,
-                          fontSize: 34,
-                          fontWeight: FontWeight.bold),
+                  const SizedBox(height: 50),
+                  Center(
+                    child: Text(
+                      'Math Ninja',
+                      style: GoogleFonts.nunito(
+                        textStyle: const TextStyle(
+                            color: Colors.black,
+                            letterSpacing: .5,
+                            fontSize: 34,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 35),
@@ -114,13 +116,15 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 35),
                   //welcome message
-                  Text(
-                    "Welcome back, we missed you!",
-                    style: GoogleFonts.nunito(
-                      textStyle: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 0.5,
+                  Center(
+                    child: Text(
+                      "Welcome back, we missed you!",
+                      style: GoogleFonts.nunito(
+                        textStyle: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.5,
+                        ),
                       ),
                     ),
                   ),
