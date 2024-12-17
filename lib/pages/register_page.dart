@@ -6,7 +6,7 @@ import 'package:se380_project/models/User.dart';
 import '../components/button.dart';
 import '../components/text_field.dart';
 
-import 'package:dio/dio.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'first_page.dart';
 
@@ -25,11 +25,10 @@ class _RegisterPageState extends State<RegisterPage> {
   final confirmPasswordTextController = TextEditingController();
   final usernameTextController = TextEditingController();
 
-  final dio = Dio();
+  final db = FirebaseFirestore.instance;
 
   bool _obscurePassword = true;
-  bool _obscureConfirmPassword =
-      true;
+  bool _obscureConfirmPassword = true;
 
   void _togglePasswordVisibility() {
     setState(() {
@@ -39,8 +38,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void _toggleConfirmPasswordVisibility() {
     setState(() {
-      _obscureConfirmPassword =
-          !_obscureConfirmPassword;
+      _obscureConfirmPassword = !_obscureConfirmPassword;
     });
   }
 
@@ -50,51 +48,52 @@ class _RegisterPageState extends State<RegisterPage> {
     String confirmPassword = confirmPasswordTextController.text;
     String email = emailTextController.text;
 
-
-    if (!RegExp('[a-zA-Z0-9]')
-        .hasMatch(username)) {
-      print("Username is not valid. Try again.");
+    if (!RegExp('[a-zA-Z0-9]').hasMatch(username)) {
       _alertSnackBar("Username is not valid. Try again!");
-    }
-    else if (!RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+    } else if (!RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
         .hasMatch(email)) {
-      print("Email is not valid. Try again.");
       _alertSnackBar("Email is not valid. Try again!");
     } else if (password != confirmPassword) {
-      print("Password's are not matching");
       _alertSnackBar("Password's are not matching!");
     } else {
-      print("Registration is successfully done");
       _showSnackBar("Registration is successfully done");
-      postHttp(username, email, password);
+      addUser(username, email, password);
       //it should be push to home page
       Navigator.pushNamed(context, '/LoginOrRegister');
     }
   }
+
+  Future<void> addUser(String username, String email, String password) async {
+    final doc = await db
+        .collection("users")
+        .add(User(username, email, password, 0, 1, 1, 1, 1).toMap());
+    print("User is added with id: ${doc.id}");
+  }
+
   void _alertSnackBar(String message) {
     final snackBar = SnackBar(
-      content: Text(message,style: const TextStyle(fontSize: 16),),
+      content: Text(
+        message,
+        style: const TextStyle(fontSize: 16),
+      ),
       duration: const Duration(seconds: 3),
       backgroundColor: Colors.red.shade600,
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar); // shows snack bar
   }
+
   void _showSnackBar(String message) {
     final snackBar = SnackBar(
-      content: Text(message,style: const TextStyle(fontSize: 16),),
+      content: Text(
+        message,
+        style: const TextStyle(fontSize: 16),
+      ),
       duration: const Duration(seconds: 3),
       backgroundColor: Colors.green,
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar); // shows snack bar
-  }
-
-  void postHttp(String username, String email, String password) async {
-    final response = await dio.post(
-        'https://se380project-d7026-default-rtdb.europe-west1.firebasedatabase.app/users.json',
-        data: User(username, email, password, 0, 1, 1, 1, 1).toJson());
-    print(response.statusCode);
   }
 
   @override

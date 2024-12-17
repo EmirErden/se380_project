@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,32 +24,28 @@ class _LoginPageState extends State<LoginPage> {
 
   bool _obscurePassword = true;
 
+  final db = FirebaseFirestore.instance;
+
   void _togglePasswordVisibility() {
     setState(() {
       _obscurePassword = !_obscurePassword;
     });
   }
 
-  final dio = Dio();
-
-  void signIn() async {
+  Future<void> signIn() async {
     String email = emailTextController.text;
     String password = passwordTextController.text;
 
-    Map<String, dynamic>? data;
+    final snapshot = await db
+        .collection("users")
+        .where("email", isEqualTo: email)
+        .limit(1)
+        .get();
 
-    final response = await dio.get<Map<String, dynamic>>(
-        'https://se380project-d7026-default-rtdb.europe-west1.firebasedatabase.app/users.json?orderBy="email"&equalTo="$email"');
-    data = response.data;
+    if (snapshot.docs.isNotEmpty) {
+      var doc = snapshot.docs.first;
 
-    if (data != null && data.isNotEmpty) {
-      //if data is not null get the first key of the json to get past the firebase's customID.
-      final userKey = data.keys.first;
-      //And then use this key to get the the user data from the data.
-      final userData = data[userKey];
-
-      final User user = UserMapper.fromMap(userData);
-      
+      final User user = UserMapper.fromMap(doc.data());
 
       if (user.password == password) {
         _showSnackBar("Successfully signed in!");
@@ -60,25 +56,31 @@ class _LoginPageState extends State<LoginPage> {
           ),
         );
       } else {
-        print("Password and E-mail is not matching");
         _alertSnackBar("Password and E-mail is not matching!");
       }
     } else {
-      print("No user found with this email");
       _alertSnackBar("No user found with this email!");
     }
   }
+
   void _alertSnackBar(String message) {
     final snackBar = SnackBar(
-      content: Text(message,style: const TextStyle(fontSize: 16),),
+      content: Text(
+        message,
+        style: const TextStyle(fontSize: 16),
+      ),
       duration: const Duration(seconds: 3),
       backgroundColor: Colors.red.shade600,
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar); // shows snack bar
   }
+
   void _showSnackBar(String message) {
     final snackBar = SnackBar(
-      content: Text(message,style: const TextStyle(fontSize: 16),),
+      content: Text(
+        message,
+        style: const TextStyle(fontSize: 16),
+      ),
       duration: const Duration(seconds: 3),
       backgroundColor: Colors.green,
     );
@@ -131,20 +133,20 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 25),
                   //email text field
                   MyTextField(
-                      controller: emailTextController,
-                      hintText: 'Email',
-                      obscureText: false,
-                      toggleVisibility: null,
-                      showPassword: false,
+                    controller: emailTextController,
+                    hintText: 'Email',
+                    obscureText: false,
+                    toggleVisibility: null,
+                    showPassword: false,
                   ),
                   //password text field
                   const SizedBox(height: 10),
                   MyTextField(
-                      controller: passwordTextController,
-                      hintText: 'Password',
-                      obscureText: _obscurePassword,
-                      toggleVisibility: _togglePasswordVisibility,
-                      showPassword: !_obscurePassword,
+                    controller: passwordTextController,
+                    hintText: 'Password',
+                    obscureText: _obscurePassword,
+                    toggleVisibility: _togglePasswordVisibility,
+                    showPassword: !_obscurePassword,
                   ),
                   //forgot password?
                   const Padding(
@@ -237,5 +239,3 @@ class _LoginPageState extends State<LoginPage> {
         ));
   }
 }
-
-

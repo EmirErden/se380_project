@@ -29,7 +29,6 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   fluttertoast: ^8.2.8
-  dio: ^5.7.0
   flutter:
     sdk: flutter
 
@@ -44,6 +43,7 @@ dependencies:
   firebase_core: ^3.8.1
   streak_calendar: ^1.1.2
   dart_mappable: ^4.3.0
+  cloud_firestore: ^5.5.1
 
 dev_dependencies:
   flutter_test:

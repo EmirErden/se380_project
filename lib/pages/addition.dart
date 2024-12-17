@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:se380_project/pages/first_page.dart';
@@ -37,34 +36,6 @@ class _AdditionState extends State<Addition> {
   void initState() {
     super.initState();
     user = widget.user;
-    _loadQuestions(); // Initiating the loading of questions
-  }
-
-  final dio = Dio();
-  Map<String, dynamic>? data;
-
-  void _loadQuestions() async {
-    print('Fetching questions...');
-    await getQuestion();
-    print('Questions fetched!');
-  }
-
-  Future<void> getQuestion() async {
-    try {
-      final response = await dio.get(
-        'https://se380project-d7026-default-rtdb.europe-west1.firebasedatabase.app/addQuestions.json?orderBy="id"&startAt=1&endAt=5',
-      );
-      data = response.data;
-
-      if (data != null) {
-        print('Data received: $data');
-        setState(() {});
-      } else {
-        print('No data received');
-      }
-    } catch (e) {
-      print('Error fetching questions: $e');
-    }
   }
 
   final List<Question> _questions = [
@@ -84,32 +55,32 @@ class _AdditionState extends State<Addition> {
 
   //function to show the next question.
   void nextQuestion() {
-    if (index == _questions.length - 1) {
-      showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) => ResultBox(
-          color: Color(0xffFE4F73),
-          result: point,
-          questionLength: 5,
-          user: user,
-        ),
-      );
-    } else {
-      if (isSelected) {
+    if (isSelected) {
+      if (index != _questions.length - 1) {
         setState(() {
           index++;
           isSelected = false;
         });
       } else {
-        Fluttertoast.showToast(
-          msg: "Please select an answer!",
-          toastLength: Toast.LENGTH_SHORT,
-          backgroundColor: Colors.orange,
-          fontSize: 24,
-          gravity: ToastGravity.CENTER,
+        showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) => ResultBox(
+            color: Color(0xffFE4F73),
+            result: point,
+            questionLength: _questions.length,
+            user: user,
+          ),
         );
       }
+    } else {
+      Fluttertoast.showToast(
+        msg: "Please select an answer!",
+        toastLength: Toast.LENGTH_SHORT,
+        backgroundColor: Colors.orange,
+        fontSize: 24,
+        gravity: ToastGravity.CENTER,
+      );
     }
   }
 

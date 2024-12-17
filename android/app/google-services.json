@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "466171900772",
+    "firebase_url": "https://se380project-d7026-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "se380project-d7026",
+    "storage_bucket": "se380project-d7026.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:466171900772:android:bdf3a998ff2891d0e28071",
+        "android_client_info": {
+          "package_name": "com.example.se380_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABkxzv-NnMl16d95rz1rmYHfLWmgjwUag"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
