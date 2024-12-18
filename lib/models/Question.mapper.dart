@@ -20,8 +20,8 @@ class QuestionMapper extends ClassMapperBase<Question> {
   @override
   final String id = 'Question';
 
-  static String _$id(Question v) => v.id;
-  static const Field<Question, String> _f$id = Field('id', _$id);
+  static int _$id(Question v) => v.id;
+  static const Field<Question, int> _f$id = Field('id', _$id);
   static String _$firstNumber(Question v) => v.firstNumber;
   static const Field<Question, String> _f$firstNumber =
       Field('firstNumber', _$firstNumber);
@@ -41,8 +41,11 @@ class QuestionMapper extends ClassMapperBase<Question> {
   };
 
   static Question _instantiate(DecodingData data) {
-    return Question(data.dec(_f$id), data.dec(_f$firstNumber),
-        data.dec(_f$secondNumber), data.dec(_f$options));
+    return Question(
+        id: data.dec(_f$id),
+        firstNumber: data.dec(_f$firstNumber),
+        secondNumber: data.dec(_f$secondNumber),
+        options: data.dec(_f$options));
   }
 
   @override
@@ -96,7 +99,7 @@ abstract class QuestionCopyWith<$R, $In extends Question, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   MapCopyWith<$R, String, bool, ObjectCopyWith<$R, bool, bool>> get options;
   $R call(
-      {String? id,
+      {int? id,
       String? firstNumber,
       String? secondNumber,
       Map<String, bool>? options});
@@ -117,7 +120,7 @@ class _QuestionCopyWithImpl<$R, $Out>
           (v) => call(options: v));
   @override
   $R call(
-          {String? id,
+          {int? id,
           String? firstNumber,
           String? secondNumber,
           Map<String, bool>? options}) =>
@@ -129,10 +132,10 @@ class _QuestionCopyWithImpl<$R, $Out>
       }));
   @override
   Question $make(CopyWithData data) => Question(
-      data.get(#id, or: $value.id),
-      data.get(#firstNumber, or: $value.firstNumber),
-      data.get(#secondNumber, or: $value.secondNumber),
-      data.get(#options, or: $value.options));
+      id: data.get(#id, or: $value.id),
+      firstNumber: data.get(#firstNumber, or: $value.firstNumber),
+      secondNumber: data.get(#secondNumber, or: $value.secondNumber),
+      options: data.get(#options, or: $value.options));
 
   @override
   QuestionCopyWith<$R2, Question, $Out2> $chain<$R2, $Out2>(

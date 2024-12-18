@@ -7,8 +7,6 @@ import 'package:line_icons/line_icons.dart';
 import 'package:se380_project/pages/addition.dart';
 import 'package:streak_calendar/streak_calendar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:se380_project/pages/profile_page.dart';
-import 'package:se380_project/pages/schedule_page.dart';
 
 import '../models/User.dart';
 
@@ -100,9 +98,13 @@ class HomePage extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Addition(user: user)));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Addition(
+                        user: user,
+                      ),
+                    ),
+                  );
                 },
                 //addition box
                 child: Container(

@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:se380_project/components/button.dart';
 import 'package:se380_project/components/square_tile.dart';
 import 'package:se380_project/components/text_field.dart';
+import 'package:se380_project/models/Question.dart';
 import 'package:se380_project/models/User.dart';
 import 'package:se380_project/pages/first_page.dart';
 
@@ -30,6 +31,21 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       _obscurePassword = !_obscurePassword;
     });
+  }
+
+  //Function for adding questions to the firebase. Will be deleted later
+  Future<void> addQuestions() async {
+    try {
+      await db.collection("addQuestions").doc("10").set(Question(
+            id: 10,
+            firstNumber: '11',
+            secondNumber: '  9',
+            options: {'20': true, '19': false, '18': false, '21': false},
+          ).toMap());
+      print("succesfully addded the question.");
+    } catch (e) {
+      print("Error adding data: $e");
+    }
   }
 
   Future<void> signIn() async {
@@ -168,6 +184,8 @@ class _LoginPageState extends State<LoginPage> {
                   //sign in button
                   MyButton(onTap: signIn, text: 'Sign In'),
                   const SizedBox(height: 30),
+                  // ElevatedButton(
+                  //     onPressed: addQuestions, child: Text("Add Questions")),
                   //or continue with
                   const Padding(
                     padding: EdgeInsets.all(4.0),
