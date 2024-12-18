@@ -50,8 +50,8 @@ class _ProfilePageState extends State<ProfilePage> {
           controller: field == 'username'
               ? usernameTextController
               : field == 'password'
-              ? passwordTextController
-              : emailTextController,
+                  ? passwordTextController
+                  : emailTextController,
           style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
             hintText: "Enter new $field",
@@ -87,11 +87,25 @@ class _ProfilePageState extends State<ProfilePage> {
         _alertSnackBar("Field cannot be empty.");
         return;
       }
+      // Document id of the user it will fill later
+      String docId = "";
+
+      //query for getting the document ID of the user
+      final query = await db
+          .collection("users")
+          .where("email", isEqualTo: widget.user.email)
+          .limit(1)
+          .get();
+      print(docId);
+
+      if (query.docs.isNotEmpty) {
+        docId = query.docs.first.id;
+      }
 
       // Update in Firestore
       await FirebaseFirestore.instance
           .collection('users')
-          .doc(widget.user.id)  // ????
+          .doc(docId)
           .update({field: newValue});
 
       // Update in local model and UI
@@ -112,7 +126,7 @@ class _ProfilePageState extends State<ProfilePage> {
       // Show a success message
       _showSnackBar("Information updated successfully");
     } catch (error) {
-      print("Error updating information: $error");  // Log error for debugging
+      print("Error updating information: $error"); // Log error for debugging
       // Show error message
       _alertSnackBar("Failed to update information");
     }
