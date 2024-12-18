@@ -8,8 +8,6 @@ import '../components/text_field.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'first_page.dart';
-
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
   const RegisterPage({super.key, required this.onTap});
