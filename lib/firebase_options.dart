@@ -66,6 +66,8 @@ class DefaultFirebaseOptions {
     projectId: 'se380project-d7026',
     databaseURL: 'https://se380project-d7026-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'se380project-d7026.firebasestorage.app',
+    androidClientId: '466171900772-scvg7d1a98khcr9gq8b0kfd8lhkvud7o.apps.googleusercontent.com',
+    iosClientId: '466171900772-vu5r6tsa62h8vl5a5824i04j2jknhb9p.apps.googleusercontent.com',
     iosBundleId: 'com.example.se380Project',
   );
 
@@ -76,6 +78,8 @@ class DefaultFirebaseOptions {
     projectId: 'se380project-d7026',
     databaseURL: 'https://se380project-d7026-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'se380project-d7026.firebasestorage.app',
+    androidClientId: '466171900772-scvg7d1a98khcr9gq8b0kfd8lhkvud7o.apps.googleusercontent.com',
+    iosClientId: '466171900772-vu5r6tsa62h8vl5a5824i04j2jknhb9p.apps.googleusercontent.com',
     iosBundleId: 'com.example.se380Project',
   );
 
@@ -88,4 +92,5 @@ class DefaultFirebaseOptions {
     databaseURL: 'https://se380project-d7026-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'se380project-d7026.firebasestorage.app',
   );
+
 }
