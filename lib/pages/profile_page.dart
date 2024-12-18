@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:se380_project/components/text_box.dart';
-
 import '../models/User.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -40,7 +39,6 @@ class _ProfilePageState extends State<ProfilePage> {
           },
         ),
         actions: [
-          //cancel button
           TextButton(
             child: Text(
               "Cancel",
@@ -48,8 +46,6 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             onPressed: () => Navigator.pop(context),
           ),
-
-          //save button
           TextButton(
             child: Text(
               "Save",
@@ -65,21 +61,21 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xfffffbf7),
+        backgroundColor: const Color(0xfffffbf7),
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(Icons.output_outlined, color: Colors.white),
+            icon: const Icon(Icons.output_outlined, color: Colors.white),
             onPressed: () {
               Navigator.popAndPushNamed(context, '/LoginOrRegister');
             },
           ),
-          iconTheme: IconThemeData(
+          iconTheme: const IconThemeData(
             color: Colors.white, //change your color here
           ),
           title: Text(
             'Profile Page',
             style: GoogleFonts.nunito(
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
                   color: Colors.white,
                   letterSpacing: .5,
                   fontSize: 24,
@@ -92,24 +88,24 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         body: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             //icon
-            Icon(
+            const Icon(
               LineIcons.userNinja,
               size: 78,
             ),
             //Details
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
 
-            Text(
+            const Text(
               'My Details',
               style: TextStyle(color: Colors.black, fontSize: 18),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-            //user name
+            //username
             MyTextBox(
               text: widget.user.username,
               sectionName: 'Username',
@@ -128,23 +124,6 @@ class _ProfilePageState extends State<ProfilePage> {
               text: widget.user.email,
               sectionName: 'E-mail',
               onPressed: () => editField('email'),
-            ),
-
-            //phone number
-            /*MyTextBox(
-            text: '531 615 56 50',
-            sectionName: 'Phone Number',
-            onPressed:() => editField('phone'),
-          ),*/
-
-            //birth day
-            MyTextBox(
-              text: '26/05/2003',
-              sectionName: 'Birth Day',
-              onPressed: () => editField('birth'),
-            ),
-            SizedBox(
-              height: 20,
             ),
           ],
         ));

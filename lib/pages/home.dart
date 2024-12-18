@@ -104,11 +104,12 @@ class HomePage extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => Addition(user: user)));
                 },
+                //addition box
                 child: Container(
                   margin: EdgeInsets.all(8),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: Color(0xffFE4F73),
+                    color: Color(0xffFE4F60),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Row(
@@ -172,7 +173,7 @@ class HomePage extends StatelessWidget {
                   margin: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: Color(0xffDFAC8B),
+                    color: Color(0xffDFAC60),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Row(

@@ -119,7 +119,7 @@ class _AdditionState extends State<Addition> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffFE4F73),
+      backgroundColor: Color(0xffFE4F60),
       appBar: AppBar(
         //its using on second restart
         leading: IconButton(
