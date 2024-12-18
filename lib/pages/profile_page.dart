@@ -1,5 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
@@ -16,23 +15,47 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  //edit field
+  final emailTextController = TextEditingController();
+  final passwordTextController = TextEditingController();
+  final usernameTextController = TextEditingController();
+  final db = FirebaseFirestore.instance;
+
+  // edit field
   Future<void> editField(String field) async {
     String newValue = "";
+
+    // Pre-fill the TextField with the current value
+    if (field == 'username') {
+      newValue = widget.user.username;
+      usernameTextController.text = widget.user.username;
+    } else if (field == 'password') {
+      newValue = widget.user.password;
+      passwordTextController.text = widget.user.password;
+    } else if (field == 'email') {
+      newValue = widget.user.email;
+      emailTextController.text = widget.user.email;
+    }
+
+    // Show dialog to edit the field
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: Colors.grey[900],
         title: Text(
           "Edit $field",
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
         content: TextField(
           autofocus: true,
-          style: TextStyle(color: Colors.white),
+          controller: field == 'username'
+              ? usernameTextController
+              : field == 'password'
+              ? passwordTextController
+              : emailTextController,
+          style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
             hintText: "Enter new $field",
-            hintStyle: TextStyle(color: Colors.grey),
+            hintStyle: const TextStyle(color: Colors.grey),
           ),
           onChanged: (value) {
             newValue = value;
@@ -40,22 +63,85 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         actions: [
           TextButton(
-            child: Text(
-              "Cancel",
-              style: TextStyle(color: Colors.white),
-            ),
+            child: const Text("Cancel", style: TextStyle(color: Colors.white)),
             onPressed: () => Navigator.pop(context),
           ),
           TextButton(
-            child: Text(
-              "Save",
-              style: TextStyle(color: Colors.white),
-            ),
-            onPressed: () => Navigator.of(context).pop(newValue),
-          )
+            child: const Text("Save", style: TextStyle(color: Colors.white)),
+            onPressed: () async {
+              // Update the information in Firestore
+              await updateInfo(field, newValue);
+              Navigator.pop(context);
+            },
+          ),
         ],
       ),
     );
+  }
+
+  // Update information in Firestore and local model
+  Future<void> updateInfo(String field, String newValue) async {
+    try {
+      // Ensure a valid value is entered
+      if (newValue.isEmpty) {
+        _alertSnackBar("Field cannot be empty.");
+        return;
+      }
+
+      // Update in Firestore
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.user.id)  // ????
+          .update({field: newValue});
+
+      // Update in local model and UI
+      setState(() {
+        switch (field) {
+          case 'username':
+            widget.user.username = newValue;
+            break;
+          case 'password':
+            widget.user.password = newValue;
+            break;
+          case 'email':
+            widget.user.email = newValue;
+            break;
+        }
+      });
+
+      // Show a success message
+      _showSnackBar("Information updated successfully");
+    } catch (error) {
+      print("Error updating information: $error");  // Log error for debugging
+      // Show error message
+      _alertSnackBar("Failed to update information");
+    }
+  }
+
+  void _alertSnackBar(String message) {
+    final snackBar = SnackBar(
+      content: Text(
+        message,
+        style: const TextStyle(fontSize: 16),
+      ),
+      duration: const Duration(seconds: 3),
+      backgroundColor: Colors.red.shade600,
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar); // shows snack bar
+  }
+
+  void _showSnackBar(String message) {
+    final snackBar = SnackBar(
+      content: Text(
+        message,
+        style: const TextStyle(fontSize: 16),
+      ),
+      duration: const Duration(seconds: 3),
+      backgroundColor: Colors.green,
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar); // shows snack bar
   }
 
   @override
