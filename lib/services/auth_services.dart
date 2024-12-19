@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthServices{
-
+class AuthServices {
   //Google sign in
-  signInWithGoogle() async{
+  Future<dynamic> signInWithGoogle() async {
     //begin interactive sign in process
     final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
 
@@ -18,8 +17,11 @@ class AuthServices{
     );
 
     //finally, lets sign in
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    var a = await FirebaseAuth.instance.signInWithCredential(credential);
+    String? uId = a.user?.uid;
 
+    if (uId != null) {
+      return (uId);
+    }
   }
-
 }
