@@ -4,16 +4,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:se380_project/components/quit_box.dart';
 import 'package:se380_project/pages/addition.dart';
-import 'package:streak_calendar/streak_calendar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../models/User.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.user});
 
   final User user;
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +30,12 @@ class HomePage extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.output_outlined, color: Colors.white),
           onPressed: () {
-            Navigator.popAndPushNamed(context, '/LoginOrRegister');
+            showDialog(
+              context: context,
+              builder: (context) {
+                return QuitBox(user: widget.user);
+              },
+            );
           },
         ),
         iconTheme: IconThemeData(
@@ -76,16 +88,18 @@ class HomePage extends StatelessWidget {
           //SUBTITLE
           Padding(
             padding: const EdgeInsets.all(2.0),
-            child: Text(
-              'Categories',
-              style: GoogleFonts.nunito(
-                textStyle: TextStyle(
-                  color: Colors.black,
-                  letterSpacing: 0.5,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  decoration: TextDecoration.underline,
-                  decorationThickness: 4,
+            child: Center(
+              child: Text(
+                'Categories',
+                style: GoogleFonts.nunito(
+                  textStyle: TextStyle(
+                    color: Colors.black,
+                    letterSpacing: 0.5,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    decoration: TextDecoration.underline,
+                    decorationThickness: 4,
+                  ),
                 ),
               ),
             ),
@@ -101,7 +115,7 @@ class HomePage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => Addition(
-                        user: user,
+                        user: widget.user,
                       ),
                     ),
                   );

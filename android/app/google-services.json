@@ -13,20 +13,7 @@
           "package_name": "com.example.se380_project"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "466171900772-scvg7d1a98khcr9gq8b0kfd8lhkvud7o.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.se380_project",
-            "certificate_hash": "3999a063f967e8f5f0db6f41af0c22e746144a55"
-          }
-        },
-        {
-          "client_id": "466171900772-skod40um5np0ilnf8ri03hg1gbt6jfu1.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyABkxzv-NnMl16d95rz1rmYHfLWmgjwUag"
@@ -34,19 +21,7 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "466171900772-skod40um5np0ilnf8ri03hg1gbt6jfu1.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "466171900772-vu5r6tsa62h8vl5a5824i04j2jknhb9p.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.se380Project"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

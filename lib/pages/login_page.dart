@@ -8,7 +8,6 @@ import 'package:se380_project/components/text_field.dart';
 import 'package:se380_project/models/Question.dart';
 import 'package:se380_project/models/User.dart';
 import 'package:se380_project/pages/first_page.dart';
-import 'package:se380_project/services/auth_services.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -215,20 +214,14 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 40),
                   //google + apple sign in buttons
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       //google button
-                      SquareTile(
-                          onTap: () => AuthServices().signInWithGoogle(),
-                          imagePath: 'lib/images/google.png'
-                      ),
-                      const SizedBox(width: 50),
+                      SquareTile(imagePath: 'lib/images/google.png'),
+                      SizedBox(width: 50),
                       //apple button
                       SquareTile(
-                        onTap: () {
-
-                        },
                         imagePath: 'lib/images/apple.png',
                       ),
                     ],

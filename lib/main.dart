@@ -6,7 +6,7 @@ import 'package:se380_project/pages/division.dart';
 import 'package:se380_project/pages/extraction.dart';
 import 'package:se380_project/pages/multiplication.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'services/auth_services.dart';
+
 import 'firebase_options.dart';
 
 Future<void> main() async {
