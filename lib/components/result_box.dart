@@ -43,7 +43,7 @@ class _ResultBoxState extends State<ResultBox> {
     //query for getting the document ID;
     final query = await db
         .collection("users")
-        .where("email", isEqualTo: "emirerden123@gmail.com")
+        .where("email", isEqualTo: widget.user.email)
         .limit(1)
         .get();
     if (query.docs.isNotEmpty) {
