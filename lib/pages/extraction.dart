@@ -217,7 +217,7 @@ class _ExtractionState extends State<Extraction> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '+',
+                            '-',
                             style: GoogleFonts.nunito(
                               textStyle: TextStyle(
                                   color: Colors.white,

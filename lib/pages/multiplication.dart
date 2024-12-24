@@ -217,7 +217,7 @@ class _MultiplicationState extends State<Multiplication> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '+',
+                            'x',
                             style: GoogleFonts.nunito(
                               textStyle: TextStyle(
                                   color: Colors.white,
