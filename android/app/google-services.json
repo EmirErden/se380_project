@@ -42,19 +42,7 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "466171900772-skod40um5np0ilnf8ri03hg1gbt6jfu1.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "466171900772-vu5r6tsa62h8vl5a5824i04j2jknhb9p.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.se380Project"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
