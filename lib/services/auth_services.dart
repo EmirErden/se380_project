@@ -3,7 +3,7 @@
 //
 // class AuthServices {
 //   //Google sign in
-//   Future<dynamic> signInWithGoogle() async {
+//   signInWithGoogle() async {
 //     //begin interactive sign in process
 //     final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
 //
@@ -17,11 +17,6 @@
 //     );
 //
 //     //finally, lets sign in
-//     var a = await FirebaseAuth.instance.signInWithCredential(credential);
-//     String? uId = a.user?.uid;
-//
-//     if (uId != null) {
-//       return (uId);
-//     }
+//     return await FirebaseAuth.instance.signInWithCredential(credential);
 //   }
 // }
