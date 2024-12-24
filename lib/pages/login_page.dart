@@ -35,74 +35,74 @@ class _LoginPageState extends State<LoginPage> {
   //Function for adding questions to the firebase. Will be deleted later
   Future<void> addQuestions() async {
     try {
-      await db.collection("divQuestions").doc("1").set(Question(
+      await db.collection("extQuestions").doc("1").set(Question(
             id: 1,
-            firstNumber: '6',
-            secondNumber: '  2',
-            options: {'3': true, '4': false, '5': false, '6': false},
-          ).toMap());
-
-      await db.collection("divQuestions").doc("2").set(Question(
-            id: 2,
-            firstNumber: '9',
-            secondNumber: '  3',
-            options: {'3': false, '4': true, '5': false, '6': false},
-          ).toMap());
-
-      await db.collection("divQuestions").doc("3").set(Question(
-            id: 3,
-            firstNumber: '12',
-            secondNumber: '  4',
-            options: {'2': false, '3': false, '4': true, '5': false},
-          ).toMap());
-
-      await db.collection("divQuestions").doc("4").set(Question(
-            id: 4,
             firstNumber: '15',
-            secondNumber: '  3',
-            options: {'4': false, '5': false, '6': true, '7': false},
+            secondNumber: '  5',
+            options: {'10': true, '11': false, '9': false, '12': false},
           ).toMap());
 
-      await db.collection("divQuestions").doc("5").set(Question(
-            id: 5,
-            firstNumber: '20',
-            secondNumber: '  4',
-            options: {'5': false, '6': false, '7': false, '4': true},
-          ).toMap());
-
-      await db.collection("divQuestions").doc("6").set(Question(
-            id: 6,
+      await db.collection("extQuestions").doc("2").set(Question(
+            id: 2,
             firstNumber: '18',
-            secondNumber: '  6',
-            options: {'3': true, '4': false, '2': false, '5': false},
-          ).toMap());
-
-      await db.collection("divQuestions").doc("7").set(Question(
-            id: 7,
-            firstNumber: '24',
             secondNumber: '  8',
-            options: {'3': false, '4': false, '5': false, '6': true},
+            options: {'9': false, '10': true, '11': false, '12': false},
           ).toMap());
 
-      await db.collection("divQuestions").doc("8").set(Question(
-            id: 8,
+      await db.collection("extQuestions").doc("3").set(Question(
+            id: 3,
+            firstNumber: '20',
+            secondNumber: '  7',
+            options: {'12': false, '13': false, '14': false, '13': true},
+          ).toMap());
+
+      await db.collection("extQuestions").doc("4").set(Question(
+            id: 4,
+            firstNumber: '25',
+            secondNumber: '10',
+            options: {'14': false, '13': false, '15': true, '16': false},
+          ).toMap());
+
+      await db.collection("extQuestions").doc("5").set(Question(
+            id: 5,
             firstNumber: '30',
-            secondNumber: '  6',
-            options: {'4': false, '5': true, '6': false, '7': false},
+            secondNumber: '12',
+            options: {'20': false, '19': false, '17': false, '18': true},
           ).toMap());
 
-      await db.collection("divQuestions").doc("9").set(Question(
+      await db.collection("extQuestions").doc("6").set(Question(
+            id: 6,
+            firstNumber: '35',
+            secondNumber: '15',
+            options: {'21': false, '22': false, '20': true, '19': false},
+          ).toMap());
+
+      await db.collection("extQuestions").doc("7").set(Question(
+            id: 7,
+            firstNumber: '40',
+            secondNumber: '20',
+            options: {'19': false, '20': true, '21': false, '22': false},
+          ).toMap());
+
+      await db.collection("extQuestions").doc("8").set(Question(
+            id: 8,
+            firstNumber: '50',
+            secondNumber: '25',
+            options: {'27': false, '26': false, '25': true, '24': false},
+          ).toMap());
+
+      await db.collection("extQuestions").doc("9").set(Question(
             id: 9,
-            firstNumber: '45',
-            secondNumber: '  9',
-            options: {'4': false, '5': false, '6': true, '7': false},
+            firstNumber: '60',
+            secondNumber: '30',
+            options: {'32': false, '30': true, '29': false, '31': false},
           ).toMap());
 
-      await db.collection("divQuestions").doc("10").set(Question(
+      await db.collection("extQuestions").doc("10").set(Question(
             id: 10,
-            firstNumber: '48',
-            secondNumber: '  6',
-            options: {'7': false, '8': true, '9': false, '10': false},
+            firstNumber: '70',
+            secondNumber: '35',
+            options: {'34': false, '35': true, '36': false, '37': false},
           ).toMap());
 
       print("succesfully addded the question.");

@@ -27,7 +27,7 @@ class _MultiplicationState extends State<Multiplication> {
   int point = 0;
   //boolean for checking if the answer is already selected
   bool isSelected = false;
-  //user object for changing it's point and additionIndex
+  //user object for changing it's point and multiIndex
   late User user;
   //db object for firebase
   final db = FirebaseFirestore.instance;
@@ -52,8 +52,8 @@ class _MultiplicationState extends State<Multiplication> {
 
     final snapshot = await db
         .collection("multiQuestions")
-        .where("id", isGreaterThanOrEqualTo: user.addIndex + 1)
-        .where("id", isLessThanOrEqualTo: user.addIndex + 5)
+        .where("id", isGreaterThanOrEqualTo: user.multiIndex + 1)
+        .where("id", isLessThanOrEqualTo: user.multiIndex + 5)
         .get();
 
     if (snapshot.docs.isNotEmpty) {

@@ -5,6 +5,9 @@ import 'package:se380_project/pages/addition.dart';
 import 'package:se380_project/pages/first_page.dart';
 
 import '../models/User.dart';
+import '../pages/division.dart';
+import '../pages/extraction.dart';
+import '../pages/multiplication.dart';
 
 class ResultBox extends StatefulWidget {
   const ResultBox(
@@ -194,11 +197,31 @@ class _ResultBoxState extends State<ResultBox> {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
+                      // Widget içinde bir değere göre yönlendirme yap
+                      Widget nextPage;
+                      switch (widget.operationType) {
+                        case 'addition':
+                          nextPage = Addition(user: widget.user);
+                          break;
+                        case 'extraction':
+                          nextPage = Extraction(user: widget.user);
+                          break;
+                        case 'multiplication':
+                          nextPage = Multiplication(user: widget.user);
+                          break;
+                        case 'division':
+                          nextPage = Division(user: widget.user);
+                          break;
+                        default:
+                          nextPage = Addition(user: widget.user);
+                      }
+
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
-                          builder: (context) => Addition(user: widget.user),
+                          builder: (context) => nextPage,
                         ),
-                        (Route<dynamic> route) => false,
+                        (Route<dynamic> route) =>
+                            false, // Geri dönüş yığınını temizler
                       );
                     },
                     child: const Padding(

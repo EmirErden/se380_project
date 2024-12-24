@@ -27,7 +27,7 @@ class _DivisionState extends State<Division> {
   int point = 0;
   //boolean for checking if the answer is already selected
   bool isSelected = false;
-  //user object for changing it's point and additionIndex
+  //user object for changing it's point and divIndex
   late User user;
   //db object for firebase
   final db = FirebaseFirestore.instance;
@@ -52,8 +52,8 @@ class _DivisionState extends State<Division> {
 
     final snapshot = await db
         .collection("divQuestions")
-        .where("id", isGreaterThanOrEqualTo: user.addIndex + 1)
-        .where("id", isLessThanOrEqualTo: user.addIndex + 5)
+        .where("id", isGreaterThanOrEqualTo: user.divIndex + 1)
+        .where("id", isLessThanOrEqualTo: user.divIndex + 5)
         .get();
 
     if (snapshot.docs.isNotEmpty) {
