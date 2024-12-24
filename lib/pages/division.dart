@@ -187,7 +187,7 @@ class _DivisionState extends State<Division> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Please select the correct answer",
+                    "Please select the correct answer!",
                     style: GoogleFonts.nunito(
                         textStyle: TextStyle(
                             color: Colors.white,
@@ -201,7 +201,7 @@ class _DivisionState extends State<Division> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const SizedBox(width: 30),
+                          const SizedBox(width: 10),
                           Text(
                             _questions[index].firstNumber,
                             style: GoogleFonts.nunito(
@@ -213,39 +213,32 @@ class _DivisionState extends State<Division> {
                           ),
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '+',
-                            style: GoogleFonts.nunito(
-                              textStyle: TextStyle(
-                                  color: Colors.white,
-                                  letterSpacing: .5,
-                                  fontSize: 60),
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          // Space between operator and number
-                          Text(
-                            _questions[index].secondNumber,
-                            style: GoogleFonts.nunito(
-                              textStyle: TextStyle(
-                                  color: Colors.white,
-                                  letterSpacing: .5,
-                                  fontSize: 60),
-                            ),
-                          ),
-                        ],
-                      )
                     ],
                   ),
-                  Center(
-                    child: Container(
-                      height: 5,
-                      width: 150,
-                      color: Colors.white,
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Center(
+                      child: Container(
+                        height: 5,
+                        width: 120,
+                        color: Colors.white,
+                      ),
                     ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Space between operator and number
+                      Text(
+                        _questions[index].secondNumber,
+                        style: GoogleFonts.nunito(
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              letterSpacing: .5,
+                              fontSize: 60),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 100),
                   for (int i = 0; i < _questions[index].options.length; i++)
