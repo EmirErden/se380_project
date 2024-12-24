@@ -64,12 +64,7 @@ class _AlertBoxState extends State<AlertBox> {
             // NO
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                    builder: (context) => Addition(user: widget.user),
-                  ),
-                      (Route<dynamic> route) => false,
-                );
+                Navigator.of(context).pop();
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.redAccent,
