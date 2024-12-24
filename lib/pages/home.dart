@@ -7,6 +7,9 @@ import 'package:line_icons/line_icons.dart';
 import 'package:se380_project/components/quit_box.dart';
 import 'package:se380_project/pages/addition.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:se380_project/pages/extraction.dart';
+import 'package:se380_project/pages/multiplication.dart';
+import 'package:se380_project/pages/division.dart';
 
 import '../models/User.dart';
 
@@ -20,8 +23,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -150,7 +151,14 @@ class _HomePageState extends State<HomePage> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/Extraction');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Extraction(
+                        user: widget.user,
+                      ),
+                    ),
+                  );
                 },
                 // EXTRACTION BOX
                 child: Container(
@@ -182,7 +190,14 @@ class _HomePageState extends State<HomePage> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/Multiplication');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Multiplication(
+                        user: widget.user,
+                      ),
+                    ),
+                  );
                 },
                 // MULTIPLICATION BOX
                 child: Container(
@@ -214,7 +229,14 @@ class _HomePageState extends State<HomePage> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/Division');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Multiplication(
+                        user: widget.user,
+                      ),
+                    ),
+                  );
                 },
                 // DIVISION BOX
                 child: Container(

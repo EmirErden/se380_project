@@ -12,12 +12,14 @@ class ResultBox extends StatefulWidget {
       required this.color,
       required this.result,
       required this.questionLength,
-      required this.user});
+      required this.user,
+      required this.operationType});
 
   final Color color;
   final int result;
   final int questionLength;
   final User user;
+  final String operationType;
 
   @override
   State<StatefulWidget> createState() => _ResultBoxState();
@@ -50,15 +52,43 @@ class _ResultBoxState extends State<ResultBox> {
       print("user is not found");
     }
 
-    //Query for changing the user data
-    await db.collection("users").doc(docId).update({
-      "score": widget.user.score + widget.result,
-      "addIndex": widget.user.addIndex + 5
-    });
+    //Query for changing the user data and changing in app user data
+    switch (widget.operationType) {
+      case "addition":
+        await db.collection("users").doc(docId).update({
+          "score": widget.user.score + widget.result,
+          "addIndex": widget.user.addIndex + 5
+        });
+        widget.user.score += widget.result;
+        widget.user.addIndex += 5;
+        break;
+      case "extraction":
+        await db.collection("users").doc(docId).update({
+          "score": widget.user.score + widget.result,
+          "extIndex": widget.user.extIndex + 5
+        });
+        widget.user.score += widget.result;
+        widget.user.extIndex += 5;
+        break;
+      case "multiplication":
+        await db.collection("users").doc(docId).update({
+          "score": widget.user.score + widget.result,
+          "multiIndex": widget.user.multiIndex + 5
+        });
+        widget.user.score += widget.result;
+        widget.user.multiIndex += 5;
+        break;
+      case "division":
+        await db.collection("users").doc(docId).update({
+          "score": widget.user.score + widget.result,
+          "divIndex": widget.user.divIndex + 5
+        });
+        widget.user.score += widget.result;
+        widget.user.divIndex += 5;
+        break;
+    }
 
     //changing the user inside of the app
-    widget.user.score += widget.result;
-    widget.user.addIndex += 5;
 
     setState(() {
       isLoading = false;

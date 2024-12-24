@@ -36,12 +36,76 @@ class _LoginPageState extends State<LoginPage> {
   //Function for adding questions to the firebase. Will be deleted later
   Future<void> addQuestions() async {
     try {
-      await db.collection("addQuestions").doc("10").set(Question(
-            id: 10,
-            firstNumber: '11',
-            secondNumber: '  9',
-            options: {'20': true, '19': false, '18': false, '21': false},
+      await db.collection("divQuestions").doc("1").set(Question(
+            id: 1,
+            firstNumber: '6',
+            secondNumber: '  2',
+            options: {'3': true, '4': false, '5': false, '6': false},
           ).toMap());
+
+      await db.collection("divQuestions").doc("2").set(Question(
+            id: 2,
+            firstNumber: '9',
+            secondNumber: '  3',
+            options: {'3': false, '4': true, '5': false, '6': false},
+          ).toMap());
+
+      await db.collection("divQuestions").doc("3").set(Question(
+            id: 3,
+            firstNumber: '12',
+            secondNumber: '  4',
+            options: {'2': false, '3': false, '4': true, '5': false},
+          ).toMap());
+
+      await db.collection("divQuestions").doc("4").set(Question(
+            id: 4,
+            firstNumber: '15',
+            secondNumber: '  3',
+            options: {'4': false, '5': false, '6': true, '7': false},
+          ).toMap());
+
+      await db.collection("divQuestions").doc("5").set(Question(
+            id: 5,
+            firstNumber: '20',
+            secondNumber: '  4',
+            options: {'5': false, '6': false, '7': false, '4': true},
+          ).toMap());
+
+      await db.collection("divQuestions").doc("6").set(Question(
+            id: 6,
+            firstNumber: '18',
+            secondNumber: '  6',
+            options: {'3': true, '4': false, '2': false, '5': false},
+          ).toMap());
+
+      await db.collection("divQuestions").doc("7").set(Question(
+            id: 7,
+            firstNumber: '24',
+            secondNumber: '  8',
+            options: {'3': false, '4': false, '5': false, '6': true},
+          ).toMap());
+
+      await db.collection("divQuestions").doc("8").set(Question(
+            id: 8,
+            firstNumber: '30',
+            secondNumber: '  6',
+            options: {'4': false, '5': true, '6': false, '7': false},
+          ).toMap());
+
+      await db.collection("divQuestions").doc("9").set(Question(
+            id: 9,
+            firstNumber: '45',
+            secondNumber: '  9',
+            options: {'4': false, '5': false, '6': true, '7': false},
+          ).toMap());
+
+      await db.collection("divQuestions").doc("10").set(Question(
+            id: 10,
+            firstNumber: '48',
+            secondNumber: '  6',
+            options: {'7': false, '8': true, '9': false, '10': false},
+          ).toMap());
+
       print("succesfully addded the question.");
     } catch (e) {
       print("Error adding data: $e");
@@ -184,9 +248,8 @@ class _LoginPageState extends State<LoginPage> {
                   //sign in button
                   MyButton(onTap: signIn, text: 'Sign In'),
                   const SizedBox(height: 30),
-                  // ElevatedButton(
-                  //     onPressed: addQuestions, child: Text("Add Questions")),
-                  //or continue with
+                  ElevatedButton(
+                      onPressed: addQuestions, child: Text("Add Questions")),
                   const Padding(
                     padding: EdgeInsets.all(4.0),
                     child: Row(

@@ -30,9 +30,6 @@ class MyApp extends StatelessWidget {
       routes: {
         //every class that has /firstPage and /Homepage and /addition will change!!!!!!!!!!
         '/LoginOrRegister': (context) => LoginOrRegister(),
-        '/Extraction': (context) => Extraction(),
-        '/Multiplication': (context) => Multiplication(),
-        '/Division': (context) => Division(),
       },
     );
   }
