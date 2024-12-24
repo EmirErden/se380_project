@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:se380_project/components/button.dart';
-import 'package:se380_project/components/square_tile.dart';
 import 'package:se380_project/components/text_field.dart';
 import 'package:se380_project/models/Question.dart';
 import 'package:se380_project/models/User.dart';
@@ -260,12 +259,6 @@ class _LoginPageState extends State<LoginPage> {
                             color: Colors.black,
                           ),
                         ),
-                        Text(
-                          '  Or continue with  ',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
                         Expanded(
                           child: Divider(
                             thickness: 1,
@@ -275,21 +268,7 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 40),
-                  //google + apple sign in buttons
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      //google button
-                      SquareTile(imagePath: 'lib/images/google.png'),
-                      SizedBox(width: 50),
-                      //apple button
-                      SquareTile(
-                        imagePath: 'lib/images/apple.png',
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 10),
                   //register now
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

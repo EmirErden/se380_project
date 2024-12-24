@@ -232,7 +232,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Multiplication(
+                      builder: (context) => Division(
                         user: widget.user,
                       ),
                     ),

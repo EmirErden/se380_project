@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:se380_project/components/text_box.dart';
 import '../models/User.dart';
 
@@ -224,6 +225,61 @@ class _ProfilePageState extends State<ProfilePage> {
               text: widget.user.email,
               sectionName: 'E-mail',
               onPressed: () => editField('email'),
+            ),
+
+            const SizedBox(height: 40),
+
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: CircularPercentIndicator(
+                    radius: 60.0,
+                    lineWidth: 13.0,
+                    animation: true,
+                    percent: 0.7,
+                    center: const Text(
+                      "70.0%",
+                      style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+                    ),
+                    footer: const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20),
+                      child: Text(
+                        "Total score",
+                        style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0),
+                      ),
+                    ),
+                    circularStrokeCap: CircularStrokeCap.round,
+                    progressColor: Colors.purple,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: CircularPercentIndicator(
+                    radius: 60.0,
+                    lineWidth: 13.0,
+                    animation: true,
+                    percent: 0.5,
+                    center: const Text(
+                      "50.0%",
+                      style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+                    ),
+                    footer: const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20),
+                      child: Text(
+                        "XXX",
+                        style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0),
+                      ),
+                    ),
+                    circularStrokeCap: CircularStrokeCap.round,
+                    progressColor: Colors.cyan,
+                  ),
+                ),
+              ],
             ),
           ],
         ));
