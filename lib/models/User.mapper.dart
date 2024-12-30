@@ -37,6 +37,9 @@ class UserMapper extends ClassMapperBase<User> {
       Field('multiIndex', _$multiIndex);
   static int _$divIndex(User v) => v.divIndex;
   static const Field<User, int> _f$divIndex = Field('divIndex', _$divIndex);
+  static int _$totalQuestions(User v) => v.totalQuestions;
+  static const Field<User, int> _f$totalQuestions =
+      Field('totalQuestions', _$totalQuestions);
 
   @override
   final MappableFields<User> fields = const {
@@ -48,6 +51,7 @@ class UserMapper extends ClassMapperBase<User> {
     #extIndex: _f$extIndex,
     #multiIndex: _f$multiIndex,
     #divIndex: _f$divIndex,
+    #totalQuestions: _f$totalQuestions,
   };
 
   static User _instantiate(DecodingData data) {
@@ -59,7 +63,8 @@ class UserMapper extends ClassMapperBase<User> {
         data.dec(_f$addIndex),
         data.dec(_f$extIndex),
         data.dec(_f$multiIndex),
-        data.dec(_f$divIndex));
+        data.dec(_f$divIndex),
+        data.dec(_f$totalQuestions));
   }
 
   @override
@@ -116,7 +121,8 @@ abstract class UserCopyWith<$R, $In extends User, $Out>
       int? addIndex,
       int? extIndex,
       int? multiIndex,
-      int? divIndex});
+      int? divIndex,
+      int? totalQuestions});
   UserCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -135,7 +141,8 @@ class _UserCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, User, $Out>
           int? addIndex,
           int? extIndex,
           int? multiIndex,
-          int? divIndex}) =>
+          int? divIndex,
+          int? totalQuestions}) =>
       $apply(FieldCopyWithData({
         if (username != null) #username: username,
         if (email != null) #email: email,
@@ -144,7 +151,8 @@ class _UserCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, User, $Out>
         if (addIndex != null) #addIndex: addIndex,
         if (extIndex != null) #extIndex: extIndex,
         if (multiIndex != null) #multiIndex: multiIndex,
-        if (divIndex != null) #divIndex: divIndex
+        if (divIndex != null) #divIndex: divIndex,
+        if (totalQuestions != null) #totalQuestions: totalQuestions
       }));
   @override
   User $make(CopyWithData data) => User(
@@ -155,7 +163,8 @@ class _UserCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, User, $Out>
       data.get(#addIndex, or: $value.addIndex),
       data.get(#extIndex, or: $value.extIndex),
       data.get(#multiIndex, or: $value.multiIndex),
-      data.get(#divIndex, or: $value.divIndex));
+      data.get(#divIndex, or: $value.divIndex),
+      data.get(#totalQuestions, or: $value.totalQuestions));
 
   @override
   UserCopyWith<$R2, User, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>

@@ -12,7 +12,8 @@ class User with UserMappable {
   int extIndex;
   int multiIndex;
   int divIndex;
+  int totalQuestions;
 
   User(this.username, this.email, this.password, this.score, this.addIndex,
-      this.extIndex, this.multiIndex, this.divIndex);
+      this.extIndex, this.multiIndex, this.divIndex, this.totalQuestions);
 }

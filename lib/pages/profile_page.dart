@@ -20,6 +20,17 @@ class _ProfilePageState extends State<ProfilePage> {
   final passwordTextController = TextEditingController();
   final usernameTextController = TextEditingController();
   final db = FirebaseFirestore.instance;
+  double percent = 0;
+  String percentString = "";
+
+  void calculatePercentages() {
+    if (widget.user.score == 0 && widget.user.totalQuestions == 0) {
+      percent = 0.0;
+    } else {
+      percent = widget.user.score / widget.user.totalQuestions;
+    }
+    percentString = "${percent * 100}.0%";
+  }
 
   // edit field
   Future<void> editField(String field) async {
@@ -160,6 +171,12 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   @override
+  void initState() {
+    calculatePercentages();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xfffffbf7),
@@ -237,18 +254,18 @@ class _ProfilePageState extends State<ProfilePage> {
                     radius: 60.0,
                     lineWidth: 13.0,
                     animation: true,
-                    percent: 0.7,
-                    center: const Text(
-                      "70.0%",
-                      style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+                    percent: percent,
+                    center: Text(
+                      percentString,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 20.0),
                     ),
                     footer: const Padding(
                       padding: EdgeInsets.symmetric(vertical: 20),
                       child: Text(
                         "Total score",
-                        style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 17.0),
                       ),
                     ),
                     circularStrokeCap: CircularStrokeCap.round,
@@ -264,15 +281,15 @@ class _ProfilePageState extends State<ProfilePage> {
                     percent: 0.5,
                     center: const Text(
                       "50.0%",
-                      style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 20.0),
                     ),
                     footer: const Padding(
                       padding: EdgeInsets.symmetric(vertical: 20),
                       child: Text(
                         "XXX",
-                        style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 17.0),
                       ),
                     ),
                     circularStrokeCap: CircularStrokeCap.round,

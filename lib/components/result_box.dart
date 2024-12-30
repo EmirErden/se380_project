@@ -54,13 +54,18 @@ class _ResultBoxState extends State<ResultBox> {
     } else {
       print("user is not found");
     }
+    await db
+        .collection("users")
+        .doc(docId)
+        .update({"totalQuestions": widget.user.totalQuestions + 5});
+    widget.user.totalQuestions += 5;
 
     //Query for changing the user data and changing in app user data
     switch (widget.operationType) {
       case "addition":
         await db.collection("users").doc(docId).update({
           "score": widget.user.score + widget.result,
-          "addIndex": widget.user.addIndex + 5
+          "addIndex": widget.user.addIndex + 5,
         });
         widget.user.score += widget.result;
         widget.user.addIndex += 5;

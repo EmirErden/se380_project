@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:se380_project/components/alert_box.dart';
+import 'package:se380_project/pages/finishedPage.dart';
 import '../models/User.dart';
 import '../models/Question.dart';
 import '../components/next_button.dart';
@@ -35,6 +36,8 @@ class _MultiplicationState extends State<Multiplication> {
   late List<Question> _questions = [];
   //bool for waiting data
   bool isLoading = true;
+  //bool for checking if there is a question in the database
+  bool questionsExist = true;
 
   @override
   void initState() {
@@ -60,6 +63,8 @@ class _MultiplicationState extends State<Multiplication> {
       for (var doc in snapshot.docs) {
         questions.add(QuestionMapper.fromMap(doc.data()));
       }
+    } else {
+      questionsExist = false;
     }
 
     setState(() {
@@ -135,144 +140,151 @@ class _MultiplicationState extends State<Multiplication> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xffDFAC60),
-      appBar: AppBar(
-        //its using on second restart
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertBox(user: widget.user);
-              },
-            );
-          },
-        ),
-        title: Text(
-          'Question ${index + 1}/${_questions.length}',
-          style: GoogleFonts.nunito(
-            textStyle: TextStyle(
-                color: Colors.white,
-                letterSpacing: .5,
-                fontSize: 24,
-                fontWeight: FontWeight.bold),
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(18),
-            child: Text(
-              "Point: $point",
-              style: TextStyle(
-                  color: Colors.white,
-                  letterSpacing: .5,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
-        backgroundColor: Colors.deepPurple,
-        elevation: 0,
-        centerTitle: true,
-      ),
-      body: isLoading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Please select the correct answer!",
-                    style: GoogleFonts.nunito(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            letterSpacing: .5,
-                            fontSize: 24)),
-                  ),
-                  const SizedBox(height: 40),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const SizedBox(width: 30),
-                          Text(
-                            _questions[index].firstNumber,
-                            style: GoogleFonts.nunito(
-                              textStyle: TextStyle(
-                                  color: Colors.white,
-                                  letterSpacing: .5,
-                                  fontSize: 60),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'x',
-                            style: GoogleFonts.nunito(
-                              textStyle: TextStyle(
-                                  color: Colors.white,
-                                  letterSpacing: .5,
-                                  fontSize: 60),
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          // Space between operator and number
-                          Text(
-                            _questions[index].secondNumber,
-                            style: GoogleFonts.nunito(
-                              textStyle: TextStyle(
-                                  color: Colors.white,
-                                  letterSpacing: .5,
-                                  fontSize: 60),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                  Center(
-                    child: Container(
-                      height: 5,
-                      width: 150,
+    return !questionsExist
+        ? FinishedPage(questionType: "multiplication", user: user)
+        : Scaffold(
+            backgroundColor: Color(0xffDFAC60),
+            appBar: AppBar(
+              //its using on second restart
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertBox(user: widget.user);
+                    },
+                  );
+                },
+              ),
+              title: Text(
+                'Question ${index + 1}/${_questions.length}',
+                style: GoogleFonts.nunito(
+                  textStyle: TextStyle(
                       color: Colors.white,
+                      letterSpacing: .5,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.all(18),
+                  child: Text(
+                    "Point: $point",
+                    style: TextStyle(
+                        color: Colors.white,
+                        letterSpacing: .5,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+              backgroundColor: Colors.deepPurple,
+              elevation: 0,
+              centerTitle: true,
+            ),
+            body: isLoading
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Please select the correct answer!",
+                          style: GoogleFonts.nunito(
+                              textStyle: TextStyle(
+                                  color: Colors.white,
+                                  letterSpacing: .5,
+                                  fontSize: 24)),
+                        ),
+                        const SizedBox(height: 40),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const SizedBox(width: 30),
+                                Text(
+                                  _questions[index].firstNumber,
+                                  style: GoogleFonts.nunito(
+                                    textStyle: TextStyle(
+                                        color: Colors.white,
+                                        letterSpacing: .5,
+                                        fontSize: 60),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'x',
+                                  style: GoogleFonts.nunito(
+                                    textStyle: TextStyle(
+                                        color: Colors.white,
+                                        letterSpacing: .5,
+                                        fontSize: 60),
+                                  ),
+                                ),
+                                const SizedBox(width: 5),
+                                // Space between operator and number
+                                Text(
+                                  _questions[index].secondNumber,
+                                  style: GoogleFonts.nunito(
+                                    textStyle: TextStyle(
+                                        color: Colors.white,
+                                        letterSpacing: .5,
+                                        fontSize: 60),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                        Center(
+                          child: Container(
+                            height: 5,
+                            width: 150,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 100),
+                        for (int i = 0;
+                            i < _questions[index].options.length;
+                            i++)
+                          GestureDetector(
+                            onTap: () => changeColorAndUpdate(
+                                _questions[index].options.values.toList()[i]),
+                            child: OptionCard(
+                              option:
+                                  _questions[index].options.keys.toList()[i],
+                              color: isSelected
+                                  ? _questions[index].options.values.toList()[i]
+                                      ? Color(0xff317832)
+                                      : Color(0xffb82424)
+                                  : Colors.white,
+                            ),
+                          ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 100),
-                  for (int i = 0; i < _questions[index].options.length; i++)
-                    GestureDetector(
-                      onTap: () => changeColorAndUpdate(
-                          _questions[index].options.values.toList()[i]),
-                      child: OptionCard(
-                        option: _questions[index].options.keys.toList()[i],
-                        color: isSelected
-                            ? _questions[index].options.values.toList()[i]
-                                ? Color(0xff317832)
-                                : Color(0xffb82424)
-                            : Colors.white,
-                      ),
+            floatingActionButton: !isLoading
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: NextButton(
+                      nextQuestion: nextQuestion,
                     ),
-                ],
-              ),
-            ),
-      floatingActionButton: !isLoading
-          ? Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: NextButton(
-                nextQuestion: nextQuestion,
-              ),
-            )
-          : null,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
+                  )
+                : null,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+          );
   }
 }
