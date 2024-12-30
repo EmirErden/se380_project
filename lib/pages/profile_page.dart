@@ -29,7 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
     } else {
       percent = widget.user.score / widget.user.totalQuestions;
     }
-    percentString = "${percent * 100}.0%";
+    percentString = "${percent * 100}%";
   }
 
   // edit field
@@ -287,7 +287,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     footer: const Padding(
                       padding: EdgeInsets.symmetric(vertical: 20),
                       child: Text(
-                        "XXX",
+                        "Sample",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 17.0),
                       ),

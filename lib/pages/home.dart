@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          //Ninja svg
+          //Ninja SVG
           SizedBox(height: 20),
           SvgPicture.asset(
             'assets/icons/ninja.svg',
