@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:streak_calendar/streak_calendar.dart';
 
+import '../components/quit_box.dart';
 import '../models/User.dart';
 
 class SchedulePage extends StatefulWidget {
@@ -40,7 +40,12 @@ class _SchedulePageState extends State<SchedulePage> {
         leading: IconButton(
           icon: Icon(Icons.output_outlined, color: Colors.white),
           onPressed: () {
-            Navigator.popAndPushNamed(context, '/LoginOrRegister');
+            showDialog(
+              context: context,
+              builder: (context) {
+                return QuitBox(user: widget.user);
+              },
+            );
           },
         ),
         iconTheme: IconThemeData(

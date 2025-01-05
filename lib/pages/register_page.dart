@@ -62,9 +62,8 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future<void> addUser(String username, String email, String password) async {
-    final doc = await db.collection("users").add(User(username, email, password,
-        0, 0, 0, 0, 0, 0, [DateTime.now().millisecondsSinceEpoch]).toMap());
-    print("User is added with id: ${doc.id}");
+    await db.collection("users").add(User(username, email, password, 0, 0, 0, 0,
+        0, 0, [DateTime.now().millisecondsSinceEpoch]).toMap());
   }
 
   void _alertSnackBar(String message) {

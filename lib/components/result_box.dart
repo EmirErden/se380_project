@@ -51,8 +51,6 @@ class _ResultBoxState extends State<ResultBox> {
         .get();
     if (query.docs.isNotEmpty) {
       docId = query.docs.first.id;
-    } else {
-      print("user is not found");
     }
     await db
         .collection("users")
@@ -101,7 +99,6 @@ class _ResultBoxState extends State<ResultBox> {
     setState(() {
       isLoading = false;
     });
-    print(widget.user);
   }
 
   @override

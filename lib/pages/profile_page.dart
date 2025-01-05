@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:se380_project/components/quit_box.dart';
 import 'package:se380_project/components/text_box.dart';
 import '../models/User.dart';
 
@@ -134,7 +135,6 @@ class _ProfilePageState extends State<ProfilePage> {
       // Show a success message
       _showSnackBar("Information updated successfully");
     } catch (error) {
-      print("Error updating information: $error"); // Log error for debugging
       // Show error message
       _alertSnackBar("Failed to update information");
     }
@@ -180,7 +180,12 @@ class _ProfilePageState extends State<ProfilePage> {
           leading: IconButton(
             icon: const Icon(Icons.output_outlined, color: Colors.white),
             onPressed: () {
-              Navigator.popAndPushNamed(context, '/LoginOrRegister');
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return QuitBox(user: widget.user);
+                },
+              );
             },
           ),
           iconTheme: const IconThemeData(

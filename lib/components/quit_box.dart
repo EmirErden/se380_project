@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:se380_project/auth/login_or_register.dart';
 import 'package:se380_project/models/User.dart';
-import 'package:se380_project/pages/first_page.dart';
 
 class QuitBox extends StatefulWidget {
-  const QuitBox( {super.key, required this.user});
+  const QuitBox({super.key, required this.user});
 
   final User user;
 
@@ -30,9 +29,7 @@ class _QuitBoxState extends State<QuitBox> {
                   "Do you want to exit ?",
                   style: GoogleFonts.nunito(
                     textStyle: const TextStyle(
-                        color: Colors.white,
-                        letterSpacing: .5,
-                        fontSize: 28),
+                        color: Colors.white, letterSpacing: .5, fontSize: 28),
                   ),
                 ),
               ),
@@ -45,7 +42,7 @@ class _QuitBoxState extends State<QuitBox> {
                   Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
                         builder: (context) => const LoginOrRegister()),
-                        (Route<dynamic> route) => false,
+                    (Route<dynamic> route) => false,
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -53,9 +50,11 @@ class _QuitBoxState extends State<QuitBox> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("Yes",
+                  child: Text(
+                    "Yes",
                     style: GoogleFonts.nunito(
-                      textStyle: const TextStyle(color: Colors.black, letterSpacing: .5, fontSize: 20),
+                      textStyle: const TextStyle(
+                          color: Colors.black, letterSpacing: .5, fontSize: 20),
                     ),
                   ),
                 ),
@@ -71,15 +70,16 @@ class _QuitBoxState extends State<QuitBox> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("No",
+                  child: Text(
+                    "No",
                     style: GoogleFonts.nunito(
-                      textStyle: const TextStyle(color: Colors.black, letterSpacing: .5, fontSize: 20),
+                      textStyle: const TextStyle(
+                          color: Colors.black, letterSpacing: .5, fontSize: 20),
                     ),
                   ),
                 ),
               ),
-            ]
-        ),
+            ]),
       ),
     );
   }

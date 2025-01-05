@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:se380_project/components/alert_box.dart';
-import 'package:se380_project/pages/finishedPage.dart';
+import 'package:se380_project/pages/finished_page.dart';
 import '../models/User.dart';
 import '../models/Question.dart';
 import '../components/next_button.dart';
@@ -64,7 +64,6 @@ class _AdditionState extends State<Addition> {
         questions.add(QuestionMapper.fromMap(doc.data()));
       }
     } else {
-      print("DOC IS EMPTY !!!!!!!!!!!");
       questionsExist = false;
     }
 
@@ -72,7 +71,6 @@ class _AdditionState extends State<Addition> {
       isLoading = false;
       _questions = questions;
     });
-    print(_questions);
   }
 
   //function to show the next question.

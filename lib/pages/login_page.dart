@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:se380_project/components/button.dart';
 import 'package:se380_project/components/text_field.dart';
-import 'package:se380_project/models/Question.dart';
 import 'package:se380_project/models/User.dart';
 import 'package:se380_project/pages/first_page.dart';
 

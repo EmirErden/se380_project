@@ -2,9 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:se380_project/auth/login_or_register.dart';
-import 'package:se380_project/pages/division.dart';
-import 'package:se380_project/pages/extraction.dart';
-import 'package:se380_project/pages/multiplication.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'firebase_options.dart';
