@@ -40,6 +40,9 @@ class UserMapper extends ClassMapperBase<User> {
   static int _$totalQuestions(User v) => v.totalQuestions;
   static const Field<User, int> _f$totalQuestions =
       Field('totalQuestions', _$totalQuestions);
+  static List<int> _$daysEntered(User v) => v.daysEntered;
+  static const Field<User, List<int>> _f$daysEntered =
+      Field('daysEntered', _$daysEntered);
 
   @override
   final MappableFields<User> fields = const {
@@ -52,6 +55,7 @@ class UserMapper extends ClassMapperBase<User> {
     #multiIndex: _f$multiIndex,
     #divIndex: _f$divIndex,
     #totalQuestions: _f$totalQuestions,
+    #daysEntered: _f$daysEntered,
   };
 
   static User _instantiate(DecodingData data) {
@@ -64,7 +68,8 @@ class UserMapper extends ClassMapperBase<User> {
         data.dec(_f$extIndex),
         data.dec(_f$multiIndex),
         data.dec(_f$divIndex),
-        data.dec(_f$totalQuestions));
+        data.dec(_f$totalQuestions),
+        data.dec(_f$daysEntered));
   }
 
   @override
@@ -113,6 +118,7 @@ extension UserValueCopy<$R, $Out> on ObjectCopyWith<$R, User, $Out> {
 
 abstract class UserCopyWith<$R, $In extends User, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
+  ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>> get daysEntered;
   $R call(
       {String? username,
       String? email,
@@ -122,7 +128,8 @@ abstract class UserCopyWith<$R, $In extends User, $Out>
       int? extIndex,
       int? multiIndex,
       int? divIndex,
-      int? totalQuestions});
+      int? totalQuestions,
+      List<int>? daysEntered});
   UserCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -133,6 +140,12 @@ class _UserCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, User, $Out>
   @override
   late final ClassMapperBase<User> $mapper = UserMapper.ensureInitialized();
   @override
+  ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>> get daysEntered =>
+      ListCopyWith(
+          $value.daysEntered,
+          (v, t) => ObjectCopyWith(v, $identity, t),
+          (v) => call(daysEntered: v));
+  @override
   $R call(
           {String? username,
           String? email,
@@ -142,7 +155,8 @@ class _UserCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, User, $Out>
           int? extIndex,
           int? multiIndex,
           int? divIndex,
-          int? totalQuestions}) =>
+          int? totalQuestions,
+          List<int>? daysEntered}) =>
       $apply(FieldCopyWithData({
         if (username != null) #username: username,
         if (email != null) #email: email,
@@ -152,7 +166,8 @@ class _UserCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, User, $Out>
         if (extIndex != null) #extIndex: extIndex,
         if (multiIndex != null) #multiIndex: multiIndex,
         if (divIndex != null) #divIndex: divIndex,
-        if (totalQuestions != null) #totalQuestions: totalQuestions
+        if (totalQuestions != null) #totalQuestions: totalQuestions,
+        if (daysEntered != null) #daysEntered: daysEntered
       }));
   @override
   User $make(CopyWithData data) => User(
@@ -164,7 +179,8 @@ class _UserCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, User, $Out>
       data.get(#extIndex, or: $value.extIndex),
       data.get(#multiIndex, or: $value.multiIndex),
       data.get(#divIndex, or: $value.divIndex),
-      data.get(#totalQuestions, or: $value.totalQuestions));
+      data.get(#totalQuestions, or: $value.totalQuestions),
+      data.get(#daysEntered, or: $value.daysEntered));
 
   @override
   UserCopyWith<$R2, User, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>

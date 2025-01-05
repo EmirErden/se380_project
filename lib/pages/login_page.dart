@@ -32,6 +32,43 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+  //Function for checking dates in the database for today's date.
+  bool checkToday(User user) {
+    final DateTime formattedToday =
+        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    for (var day in user.daysEntered) {
+      var date = DateTime.fromMillisecondsSinceEpoch(day);
+      DateTime formattedDate = DateTime(date.year, date.month, date.day);
+
+      //If today exist return true.
+      if (formattedDate == formattedToday) {
+        return true;
+      }
+    }
+    //else return false
+    return false;
+  }
+
+  //Function for updating the DateTime list of the user.
+  Future<void> updateDateTime(List<int> days, User user) async {
+    //String for the document Id
+    String docId = "";
+
+    //Query for getting the docId
+    final query = await db
+        .collection("users")
+        .where("email", isEqualTo: user.email)
+        .limit(1)
+        .get();
+
+    if (query.docs.isNotEmpty) {
+      docId = query.docs.first.id;
+    }
+
+    //Update in firestore
+    await db.collection("users").doc(docId).update({"daysEntered": days});
+  }
+
   Future<void> signIn() async {
     String email = emailTextController.text;
     String password = passwordTextController.text;
@@ -48,6 +85,16 @@ class _LoginPageState extends State<LoginPage> {
       final User user = UserMapper.fromMap(doc.data());
 
       if (user.password == password) {
+        //boolean for checking if today exist in database.
+        bool todayExist = checkToday(user);
+
+        //If today is not in the database program will enter today to the database.
+        if (!todayExist) {
+          List<int> userDays = user.daysEntered;
+          userDays.add(DateTime.now().millisecondsSinceEpoch);
+          updateDateTime(userDays, user);
+        }
+
         _showSnackBar("Successfully signed in!");
         Navigator.push(
           context,

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
 part 'User.mapper.dart';
@@ -13,7 +14,17 @@ class User with UserMappable {
   int multiIndex;
   int divIndex;
   int totalQuestions;
+  List<int> daysEntered;
 
-  User(this.username, this.email, this.password, this.score, this.addIndex,
-      this.extIndex, this.multiIndex, this.divIndex, this.totalQuestions);
+  User(
+      this.username,
+      this.email,
+      this.password,
+      this.score,
+      this.addIndex,
+      this.extIndex,
+      this.multiIndex,
+      this.divIndex,
+      this.totalQuestions,
+      this.daysEntered);
 }

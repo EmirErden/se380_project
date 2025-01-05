@@ -108,17 +108,13 @@ class _ProfilePageState extends State<ProfilePage> {
           .where("email", isEqualTo: widget.user.email)
           .limit(1)
           .get();
-      print(docId);
 
       if (query.docs.isNotEmpty) {
         docId = query.docs.first.id;
       }
 
       // Update in Firestore
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(docId)
-          .update({field: newValue});
+      await db.collection('users').doc(docId).update({field: newValue});
 
       // Update in local model and UI
       setState(() {

@@ -1,15 +1,36 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:streak_calendar/streak_calendar.dart';
 
 import '../models/User.dart';
 
-class SchedulePage extends StatelessWidget {
+class SchedulePage extends StatefulWidget {
   const SchedulePage({super.key, required this.user});
-
   final User user;
+
+  @override
+  State<StatefulWidget> createState() => _SchedulePageState();
+}
+
+class _SchedulePageState extends State<SchedulePage> {
+  //Variable for days
+  List<DateTime> days = [];
+
+  @override
+  void initState() {
+    getDateTime();
+    super.initState();
+  }
+
+  void getDateTime() {
+    for (var dateInt in widget.user.daysEntered) {
+      var day = DateTime.fromMillisecondsSinceEpoch(dateInt);
+      days.add(DateTime(day.year, day.month, day.day));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,11 +92,31 @@ class SchedulePage extends StatelessWidget {
             ),
             //Streak Calender
             const SizedBox(height: 5),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 25),
               child: CleanCalendar(
                 startWeekday: WeekDay.monday,
-                datesForStreaks: [],
+                datesForStreaks: days,
+                generalDatesProperties: DatesProperties(
+                  datesDecoration: DatesDecoration(
+                    datesBackgroundColor: Colors.red.shade100,
+                    datesBorderColor: Colors.deepPurple.shade600,
+                    datesBorderRadius: 1000,
+                  ),
+                ),
+                streakDatesProperties: DatesProperties(
+                  datesDecoration: DatesDecoration(
+                    datesBackgroundColor: Colors.green.shade400,
+                    datesBorderColor: Colors.deepPurple.shade600,
+                    datesBorderRadius: 1000,
+                  ),
+                ),
+                leadingTrailingDatesProperties: DatesProperties(
+                  datesDecoration: DatesDecoration(
+                    datesBorderRadius: 1000,
+                    datesBorderColor: Colors.deepPurple.shade600,
+                  ),
+                ),
               ),
             ),
           ],
