@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:line_icons/line_icon.dart';
 import '../components/quit_box.dart';
 import '../models/User.dart';
 
@@ -39,7 +38,6 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
 
     //If query is not empty It will add every user to it
     if (query.docs.isNotEmpty) {
-      print("Doc is not empty");
       for (int a = 0; a < query.docs.length; a++) {
         var user = UserMapper.fromMap(query.docs[a].data());
 
@@ -64,9 +62,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
 
       //Sort data before putting is inside of the DataTable
       leaderboardData.sort((a, b) => b['Points'].compareTo(a['Points']));
-    } else {
-      print("Doc is empty");
-    }
+    } else {}
     setState(() {
       isLoading = false;
     });
@@ -75,7 +71,6 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
   void sortData(int columnIndex) {
     setState(() {
       _sortColumnIndex = columnIndex;
-
       switch (columnIndex) {
         case 2: // totalQuestions
           leaderboardData
@@ -207,8 +202,8 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                             rowColor = Colors.deepPurple.shade200;
                           }
                           return DataRow(
-                            color: MaterialStateProperty.resolveWith<Color?>(
-                              (Set<MaterialState> states) => rowColor,
+                            color: WidgetStateProperty.resolveWith<Color?>(
+                              (Set<WidgetState> states) => rowColor,
                             ),
                             cells: [
                               DataCell(Center(child: Text('${index + 1}'))),

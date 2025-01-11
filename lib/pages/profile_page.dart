@@ -318,7 +318,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return isLoading
-        ? const CircularProgressIndicator()
+        ? const Center(child: CircularProgressIndicator())
         : Scaffold(
             backgroundColor: const Color(0xfffffbf7),
             appBar: AppBar(
@@ -374,7 +374,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             EdgeInsets.all(8.0), // Adjust the padding as needed
                         child: Icon(
                           Icons.edit,
-                          color: Colors.white,
+                          color: Colors.black,
                           size: 24, // Adjust size of the pen icon as needed
                         ),
                       ),
