@@ -63,7 +63,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Future<void> addUser(String username, String email, String password) async {
     await db.collection("users").add(User(username, email, password, 0, 0, 0, 0,
-        0, 0, [DateTime.now().millisecondsSinceEpoch]).toMap());
+            0, 0, [DateTime.now().millisecondsSinceEpoch], "bear.svg")
+        .toMap());
   }
 
   void _alertSnackBar(String message) {

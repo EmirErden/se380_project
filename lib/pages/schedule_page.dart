@@ -104,14 +104,14 @@ class _SchedulePageState extends State<SchedulePage> {
                 datesForStreaks: days,
                 generalDatesProperties: DatesProperties(
                   datesDecoration: DatesDecoration(
-                    datesBackgroundColor: Colors.red.shade100,
+                    datesBackgroundColor: Colors.red.shade200,
                     datesBorderColor: Colors.deepPurple.shade600,
                     datesBorderRadius: 1000,
                   ),
                 ),
                 streakDatesProperties: DatesProperties(
                   datesDecoration: DatesDecoration(
-                    datesBackgroundColor: Colors.green.shade400,
+                    datesBackgroundColor: Colors.green.shade500,
                     datesBorderColor: Colors.deepPurple.shade600,
                     datesBorderRadius: 1000,
                   ),

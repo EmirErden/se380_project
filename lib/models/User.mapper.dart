@@ -43,6 +43,9 @@ class UserMapper extends ClassMapperBase<User> {
   static List<int> _$daysEntered(User v) => v.daysEntered;
   static const Field<User, List<int>> _f$daysEntered =
       Field('daysEntered', _$daysEntered);
+  static String _$profilePicture(User v) => v.profilePicture;
+  static const Field<User, String> _f$profilePicture =
+      Field('profilePicture', _$profilePicture);
 
   @override
   final MappableFields<User> fields = const {
@@ -56,6 +59,7 @@ class UserMapper extends ClassMapperBase<User> {
     #divIndex: _f$divIndex,
     #totalQuestions: _f$totalQuestions,
     #daysEntered: _f$daysEntered,
+    #profilePicture: _f$profilePicture,
   };
 
   static User _instantiate(DecodingData data) {
@@ -69,7 +73,8 @@ class UserMapper extends ClassMapperBase<User> {
         data.dec(_f$multiIndex),
         data.dec(_f$divIndex),
         data.dec(_f$totalQuestions),
-        data.dec(_f$daysEntered));
+        data.dec(_f$daysEntered),
+        data.dec(_f$profilePicture));
   }
 
   @override
@@ -129,7 +134,8 @@ abstract class UserCopyWith<$R, $In extends User, $Out>
       int? multiIndex,
       int? divIndex,
       int? totalQuestions,
-      List<int>? daysEntered});
+      List<int>? daysEntered,
+      String? profilePicture});
   UserCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -156,7 +162,8 @@ class _UserCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, User, $Out>
           int? multiIndex,
           int? divIndex,
           int? totalQuestions,
-          List<int>? daysEntered}) =>
+          List<int>? daysEntered,
+          String? profilePicture}) =>
       $apply(FieldCopyWithData({
         if (username != null) #username: username,
         if (email != null) #email: email,
@@ -167,7 +174,8 @@ class _UserCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, User, $Out>
         if (multiIndex != null) #multiIndex: multiIndex,
         if (divIndex != null) #divIndex: divIndex,
         if (totalQuestions != null) #totalQuestions: totalQuestions,
-        if (daysEntered != null) #daysEntered: daysEntered
+        if (daysEntered != null) #daysEntered: daysEntered,
+        if (profilePicture != null) #profilePicture: profilePicture
       }));
   @override
   User $make(CopyWithData data) => User(
@@ -180,7 +188,8 @@ class _UserCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, User, $Out>
       data.get(#multiIndex, or: $value.multiIndex),
       data.get(#divIndex, or: $value.divIndex),
       data.get(#totalQuestions, or: $value.totalQuestions),
-      data.get(#daysEntered, or: $value.daysEntered));
+      data.get(#daysEntered, or: $value.daysEntered),
+      data.get(#profilePicture, or: $value.profilePicture));
 
   @override
   UserCopyWith<$R2, User, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:another_flushbar/flushbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,7 +10,6 @@ import '../models/User.dart';
 import '../models/Question.dart';
 import '../components/next_button.dart';
 import '../components/option_card.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '../components/result_box.dart';
 
 class Addition extends StatefulWidget {
@@ -95,13 +95,27 @@ class _AdditionState extends State<Addition> {
         );
       }
     } else {
-      Fluttertoast.showToast(
-        msg: "Please select an answer!",
-        toastLength: Toast.LENGTH_SHORT,
+      Flushbar(
+        messageText: Center(
+          child: Text(
+            "Please select an answer!",
+            style: GoogleFonts.nunito(
+              textStyle: TextStyle(
+                  color: Colors.white, letterSpacing: .5, fontSize: 24),
+            ),
+          ),
+        ),
         backgroundColor: Colors.orange,
-        fontSize: 24,
-        gravity: ToastGravity.CENTER,
-      );
+        messageColor: Colors.white,
+        duration: Duration(seconds: 2),
+        margin: EdgeInsets.symmetric(horizontal: 70, vertical: 100),
+        borderRadius: BorderRadius.circular(8),
+        flushbarPosition: FlushbarPosition.BOTTOM,
+        flushbarStyle: FlushbarStyle.FLOATING,
+        animationDuration: Duration(milliseconds: 200),
+        forwardAnimationCurve: Curves.easeIn,
+        reverseAnimationCurve: Curves.easeOut,
+      ).show(context);
     }
   }
 
@@ -113,26 +127,52 @@ class _AdditionState extends State<Addition> {
         setState(() {
           isSelected = true;
         });
-        Fluttertoast.showToast(
-          msg: "Correct Answer!\n+1 Points", // Message for the correct answer
-          toastLength: Toast.LENGTH_SHORT,
-          backgroundColor: Colors.green, // Optional: Change color for correct
-          textColor: Colors.white,
-          fontSize: 24,
-          gravity: ToastGravity.CENTER, // Optional: Position of the toast
-        );
+        Flushbar(
+          messageText: Center(
+            child: Text(
+              "Correct Answer!\n+1 Points",
+              style: GoogleFonts.nunito(
+                textStyle: TextStyle(
+                    color: Colors.white, letterSpacing: .5, fontSize: 24),
+              ),
+            ),
+          ),
+          backgroundColor: Colors.green,
+          messageColor: Colors.white,
+          duration: Duration(seconds: 2),
+          margin: EdgeInsets.symmetric(horizontal: 70, vertical: 100),
+          borderRadius: BorderRadius.circular(8),
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          flushbarStyle: FlushbarStyle.FLOATING,
+          animationDuration: Duration(milliseconds: 200),
+          forwardAnimationCurve: Curves.easeIn,
+          reverseAnimationCurve: Curves.easeOut,
+        ).show(context);
       } else {
         setState(() {
           isSelected = true;
         });
-        Fluttertoast.showToast(
-          msg: "Wrong Answer!", // Message for the wrong answer
-          toastLength: Toast.LENGTH_SHORT,
-          backgroundColor: Colors.red, // Optional: Change color for wrong
-          textColor: Colors.white,
-          fontSize: 24,
-          gravity: ToastGravity.CENTER, // Optional: Position of the toast
-        );
+        Flushbar(
+          messageText: Center(
+            child: Text(
+              "Wrong Answer!",
+              style: GoogleFonts.nunito(
+                textStyle: TextStyle(
+                    color: Colors.white, letterSpacing: .5, fontSize: 24),
+              ),
+            ),
+          ),
+          backgroundColor: Colors.red,
+          messageColor: Colors.white,
+          duration: Duration(seconds: 2),
+          margin: EdgeInsets.symmetric(horizontal: 70, vertical: 100),
+          borderRadius: BorderRadius.circular(8),
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          flushbarStyle: FlushbarStyle.FLOATING,
+          animationDuration: Duration(milliseconds: 200),
+          forwardAnimationCurve: Curves.easeIn,
+          reverseAnimationCurve: Curves.easeOut,
+        ).show(context);
       }
     }
   }

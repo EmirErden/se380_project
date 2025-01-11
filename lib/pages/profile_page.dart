@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:se380_project/components/quit_box.dart';
 import 'package:se380_project/components/text_box.dart';
@@ -17,20 +19,101 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  //Controllers for getting the variables
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
   final usernameTextController = TextEditingController();
+  //Firestore instance
   final db = FirebaseFirestore.instance;
+  //Percent and percent string for the score
   double percent = 0;
   String percentString = "";
+  //Variable for selected profile picture
+  String _selectedProfilePicture = "bear.svg";
+  //Variable for loading the page
+  bool isLoading = false;
+
+  //List of profilePictures
+  final List<String> _profilePictures = [
+    "bear.svg",
+    "boar.svg",
+    "cow.svg",
+    "crab.svg",
+    "crocodile.svg",
+    "dinosaur.svg",
+    "elk.svg",
+    "fox.svg",
+    "hedgehog.svg",
+    "jellyfish.svg",
+    "lion.svg",
+    "penguin.svg",
+    "polar-bear.svg",
+    "rabbit.svg",
+    "raccoon.svg",
+    "shrimp.svg",
+    "whale.svg",
+    "zebra.svg",
+  ];
+
+  @override
+  void initState() {
+    calculatePercentages();
+    getUserProfilePicture();
+    super.initState();
+  }
+
+  //Function for getting the user's profile picture
+  void getUserProfilePicture() {
+    _selectedProfilePicture = widget.user.profilePicture;
+  }
+
+  Future<void> changeProfilePicture(String profilePic) async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+
+      //document id of the user
+      String docId = "";
+
+      //query for getting the document id
+      final query = await db
+          .collection("users")
+          .where("email", isEqualTo: widget.user.email)
+          .limit(1)
+          .get();
+      if (query.docs.isNotEmpty) {
+        docId = query.docs.first.id;
+      }
+      //Changing the information inside of the firestore
+      await db
+          .collection("users")
+          .doc(docId)
+          .update({"profilePicture": profilePic});
+
+      //setState for changing info inside of the program and making isLoading false
+      setState(() {
+        _selectedProfilePicture = profilePic;
+        widget.user.profilePicture = profilePic;
+        isLoading = false;
+      });
+      //Show user a success message
+      _showSnackBar("Profile picture updated successfully!");
+    } catch (e) {
+      _alertSnackBar("Failed to update the information");
+    }
+  }
 
   void calculatePercentages() {
+    print(_selectedProfilePicture);
     if (widget.user.score == 0 && widget.user.totalQuestions == 0) {
       percent = 0.0;
     } else {
       percent = widget.user.score / widget.user.totalQuestions;
     }
-    percentString = "${percent * 100}%";
+    String formattedPercent = percent.toStringAsFixed(2);
+    double formattedDouble = double.parse(formattedPercent);
+    percentString = "${formattedDouble * 100}%";
   }
 
   // edit field
@@ -166,89 +249,170 @@ class _ProfilePageState extends State<ProfilePage> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar); // shows snack bar
   }
 
-  @override
-  void initState() {
-    calculatePercentages();
-    super.initState();
+  void _showImageSelector() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      enableDrag: true,
+      isDismissible: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Container(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.6,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Select a new Profile Picture",
+                  style: GoogleFonts.nunito(
+                    textStyle: const TextStyle(
+                        color: Colors.black,
+                        letterSpacing: .5,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                      ),
+                      itemCount: _profilePictures.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              changeProfilePicture(_profilePictures[index]);
+                            });
+                            Navigator.pop(context);
+                          },
+                          child: SvgPicture.asset(
+                            "assets/profilePictures/${_profilePictures[index]}",
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: const Color(0xfffffbf7),
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.output_outlined, color: Colors.white),
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return QuitBox(user: widget.user);
+    return isLoading
+        ? const CircularProgressIndicator()
+        : Scaffold(
+            backgroundColor: const Color(0xfffffbf7),
+            appBar: AppBar(
+              leading: IconButton(
+                icon: const Icon(Icons.output_outlined, color: Colors.white),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return QuitBox(user: widget.user);
+                    },
+                  );
                 },
-              );
-            },
-          ),
-          iconTheme: const IconThemeData(
-            color: Colors.white, //change your color here
-          ),
-          title: Text(
-            'Profile Page',
-            style: GoogleFonts.nunito(
-              textStyle: const TextStyle(
-                  color: Colors.white,
-                  letterSpacing: .5,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold),
+              ),
+              iconTheme: const IconThemeData(
+                color: Colors.white, //change your color here
+              ),
+              title: Text(
+                'Profile Page',
+                style: GoogleFonts.nunito(
+                  textStyle: const TextStyle(
+                      color: Colors.white,
+                      letterSpacing: .5,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              backgroundColor: Colors.deepPurple,
+              elevation: 0,
+              centerTitle: true,
             ),
-          ),
-          backgroundColor: Colors.deepPurple,
-          elevation: 0,
-          centerTitle: true,
-        ),
-        body: Column(
-          children: [
-            const SizedBox(
-              height: 50,
-            ),
-            //icon
-            const Icon(
-              LineIcons.userNinja,
-              size: 78,
-            ),
-            //Details
-            const SizedBox(height: 10),
-
-            const Text(
-              'My Details',
-              style: TextStyle(color: Colors.black, fontSize: 18),
-            ),
-            const SizedBox(height: 20),
-
-            //username
-            MyTextBox(
-              text: widget.user.username,
-              sectionName: 'Username',
-              onPressed: () => editField('username'),
-            ),
-
-            //password
-            MyTextBox(
-              text: widget.user.password,
-              sectionName: 'Password',
-              onPressed: () => editField('password'),
-            ),
-
-            //email
-            MyTextBox(
-              text: widget.user.email,
-              sectionName: 'E-mail',
-              onPressed: () => editField('email'),
-            ),
-
-            const SizedBox(height: 40),
-
-            Row(
+            body: Column(
               children: [
+                const SizedBox(
+                  height: 50,
+                ),
+                //ico
+                GestureDetector(
+                  onTap: _showImageSelector,
+                  child: Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      // Profile Picture
+                      CircleAvatar(
+                        radius: 50,
+                        backgroundColor: Colors.grey.shade200,
+                        child: SvgPicture.asset(
+                          "assets/profilePictures/$_selectedProfilePicture",
+                        ),
+                      ),
+                      const Padding(
+                        padding:
+                            EdgeInsets.all(8.0), // Adjust the padding as needed
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                          size: 24, // Adjust size of the pen icon as needed
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                //Details
+                const SizedBox(height: 10),
+
+                const Text(
+                  'My Details',
+                  style: TextStyle(color: Colors.black, fontSize: 18),
+                ),
+                const SizedBox(height: 20),
+
+                //username
+                MyTextBox(
+                  text: widget.user.username,
+                  sectionName: 'Username',
+                  onPressed: () => editField('username'),
+                ),
+
+                //password
+                MyTextBox(
+                  text: widget.user.password,
+                  sectionName: 'Password',
+                  onPressed: () => editField('password'),
+                ),
+
+                //email
+                MyTextBox(
+                  text: widget.user.email,
+                  sectionName: 'E-mail',
+                  onPressed: () => editField('email'),
+                ),
+
+                const SizedBox(height: 40),
+
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 50),
                   child: CircularPercentIndicator(
@@ -273,33 +437,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     progressColor: Colors.purple,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: CircularPercentIndicator(
-                    radius: 60.0,
-                    lineWidth: 13.0,
-                    animation: true,
-                    percent: 0.5,
-                    center: const Text(
-                      "50.0%",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20.0),
-                    ),
-                    footer: const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 20),
-                      child: Text(
-                        "Sample",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 17.0),
-                      ),
-                    ),
-                    circularStrokeCap: CircularStrokeCap.round,
-                    progressColor: Colors.cyan,
-                  ),
-                ),
               ],
-            ),
-          ],
-        ));
+            ));
   }
 }

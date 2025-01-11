@@ -95,7 +95,6 @@ class _ResultBoxState extends State<ResultBox> {
     }
 
     //changing the user inside of the app
-
     setState(() {
       isLoading = false;
     });

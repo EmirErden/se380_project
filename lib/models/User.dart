@@ -14,6 +14,7 @@ class User with UserMappable {
   int divIndex;
   int totalQuestions;
   List<int> daysEntered;
+  String profilePicture;
 
   User(
       this.username,
@@ -25,5 +26,6 @@ class User with UserMappable {
       this.multiIndex,
       this.divIndex,
       this.totalQuestions,
-      this.daysEntered);
+      this.daysEntered,
+      this.profilePicture);
 }
